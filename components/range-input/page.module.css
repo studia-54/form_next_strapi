@@ -1,0 +1,55 @@
+/* range */
+
+.form__range_input {
+    -webkit-appearance: none;
+    width: 100%;
+    margin-top: 0.5rem;
+    background: transparent;
+  }
+
+
+  .form__range_input:focus {
+    outline: none;
+  }
+
+  .form__range_input::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 3px;
+    cursor: pointer;
+    background-color: #D38C37;
+    border-radius: 2px;
+  }
+
+  .form__range_input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background-color: #D38C37;
+    cursor: pointer;
+    margin-top: -10.5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  .form__range_input::-moz-range-track {
+    width: 100%;
+    height: 3px;
+    cursor: pointer;
+    background-color: #D38C37;
+    border-radius: 2px;
+  }
+
+  .form__range_input::-moz-range-thumb {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background-color: #D38C37;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  }
+
+.form__range_value_box {
+  width: 100%;
+  height: 25px;
+  border: 1px solid white;
+}
