@@ -1,0 +1,66 @@
+:root {
+    /* 275 */
+    --font-stThin: "GT-America-LC-Standard-Thin", sans-serif;
+    /* 300 */
+    --font-stLight: "GT-America-LC-Standard-Light", sans-serif;
+    /* 400 */
+    --font-stRegular: "GT-America-LC-Standard-Regular", sans-serif;
+    /* 500 */
+    --font-stMedium: "GT-America-LC-Standard-Medium", sans-serif;
+    --font-phRegular: "Philosopher-Regular", sans-serif;
+  }
+  @font-face {
+    font-family: "GT-America-LC-Standard-Thin";
+    font-weight: 275;
+    font-style: normal;
+    src:
+      url("../fonts/GTAmerica/GT-America-LC-Standard-Thin.woff2")
+        format("woff2"),
+      url("../fonts/GTAmerica/GT-America-LC-Standard-Thin.woff") format("woff"),
+      url("../fonts/GTAmerica/GT-America-LC-Standard-Thin.otf") format("otf"),
+      url("../fonts/GTAmerica/GT-America-LC-Standard-Thin.ttf")
+        format("truetype");
+  }
+  
+  @font-face {
+    font-family: "GT-America-LC-Standard-Light";
+    font-weight: 300;
+    font-style: normal;
+    src:
+      url("../fonts/GTAmerica/GT-America-LC-Standard-Light.woff2")
+        format("woff2"),
+      url("../fonts/GTAmerica/GT-America-LC-Standard-Light.woff")
+        format("woff"),
+      url("../fonts/GTAmerica/GT-America-LC-Standard-Light.otf") format("otf"),
+      url("../fonts/GTAmerica/GT-America-LC-Standard-Light.ttf")
+        format("truetype");
+  }
+  
+  @font-face {
+    font-family: "GT-America-LC-Standard-Regular";
+    font-weight: 400;
+    font-style: normal;
+    src:
+      url("../fonts/GTAmerica/GT-America-LC-Standard-Regular.woff2")
+        format("woff2"),
+      url("../fonts/GTAmerica/GT-America-LC-Standard-Regular.woff")
+        format("woff"),
+      url("../fonts/GTAmerica/GT-America-LC-Standard-Regular.otf")
+        format("otf"),
+      url("../fonts/GTAmerica/GT-America-LC-Standard-Regular.ttf")
+        format("truetype");
+  }
+  
+  @font-face {
+    font-family: "GT-America-LC-Standard-Medium";
+    font-weight: 500;
+    font-style: normal;
+    src:
+      url("../fonts/GTAmerica/GT-America-LC-Standard-Medium.woff2")
+        format("woff2"),
+      url("../fonts/GTAmerica/GT-America-LC-Standard-Medium.woff")
+        format("woff"),
+      url("../fonts/GTAmerica/GT-America-LC-Standard-Medium.otf") format("otf"),
+      url("../fonts/GTAmerica/GT-America-LC-Standard-Medium.ttf")
+        format("truetype");
+  }

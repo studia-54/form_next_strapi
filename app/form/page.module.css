@@ -1,0 +1,48 @@
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    width: 100%;
+    max-width: 870px;
+    padding: 35px 70px;
+    margin: 58px auto;
+    background-color: #151515CC;
+    opacity: 80%;
+    border-radius: 30px;
+    color: #ffffff;
+    backdrop-filter: blur(43px);
+    z-index: 2;
+}
+
+.form__title {
+    text-transform: uppercase;
+    font-size: 64px;
+    margin-bottom: 1.688rem;
+    line-height: 80px;
+}
+
+@media (max-width: 375px) {
+    .form__title {
+        font-size: 24px;
+        margin-bottom: 1.688rem;
+        line-height: 30px;
+        margin-bottom: 1.875rem;
+    }
+}
+
+.form__question {
+    position: relative;
+    margin-bottom: 1.625rem;
+    font-size: 18px;
+}
+
+.form__label {
+    display: block;
+    margin-bottom: 1.25rem;
+}
