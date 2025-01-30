@@ -1,3 +1,7 @@
+// import * as mocks from '../../mocks/data.json';
+
+// export const resData = mocks;
+
 const API_URL = process.env.API_URL
 const STRAPI_KEY = process.env.STRAPI_KEY
 
