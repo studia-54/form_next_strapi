@@ -21,7 +21,7 @@ export const fetchFields = async () => {
 
 const resData = data.data[0]
 
-console.log(resData)
+// console.log(resData)
       return resData
       
     } catch (error) {

@@ -1,16 +1,20 @@
+
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
 import styles from './page.module.css';
+import { useFormContext } from 'react-hook-form';
 
 interface RangeProps {
     min?: number;
     max?: number;
     step?: number;
     defaultValue?: number;
+    name: string;
 }
 
-const RangeInputNew = ({
+const Range = ({
+    name,
     min = 0,
     max = 10,
     step = 1,
@@ -20,6 +24,8 @@ const RangeInputNew = ({
     const [width, setWidth] = useState<number>(0);
     const rangeRef = useRef<HTMLInputElement>(null);
     const tooltipRef = useRef<HTMLDivElement>(null);
+
+      const { register } = useFormContext();
 
     useEffect(() => {
         if (rangeRef.current) {
@@ -43,15 +49,14 @@ const RangeInputNew = ({
         <div className={styles.rangeWrapper}>
             <div
                 ref={tooltipRef}
-                className={styles.tooltip}
-                // style={{
-                //     transition: 'left 0.1s ease-out',
-                // }}
+                
+                className={styles.range__tooltip}
             >
                 {value}
             </div>
             <input
                 ref={rangeRef}
+                {...register(name)}
                 type="range"
                 min={min}
                 max={max}
@@ -64,4 +69,4 @@ const RangeInputNew = ({
     );
 };
 
-export default RangeInputNew
+export default Range;

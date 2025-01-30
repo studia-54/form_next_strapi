@@ -1,22 +1,19 @@
 import styles from "./page.module.css";
 import { Option } from "@/types/types";
-
+import { useFormContext } from 'react-hook-form';
 interface RadiogroupItemProps {
     option: Option;
-    key: string;
+    name: string;
 }
-export const RadiogroupItem: React.FC<RadiogroupItemProps>  = () => {
+export const RadiogroupItem: React.FC<RadiogroupItemProps>  = ({ option, name}) => {
+  const { register } = useFormContext();
+
   return (
-    <div 
-              // onValueChange={field.onChange}
-               defaultValue={field.value} className={styles.form__checkboxes}> 
-                {question.options &&
-                  question.options.map((option) => (
-                    <div key={option.id} className="flex items-center space-x-2">
-                      <input className={styles.question__option} value={option.title} id={option.id.toString()}></input>
-                    </div>
-                  ))}
-              </div>
+      <div key={option.id} className={styles.form__radiogroup_item_checked}>
+        {/* <input type="radio" className={styles.question__option} value={option.title} id={option.id.toString()} {...register(name)}></input> */}
+        <div className={styles.form__radiogroup_text} id={option.id.toString()} {...register(name)}>{option.title}</div>
+        {/* <label className={styles.question__label} htmlFor={option.id.toString()}>{option.title}</label> */}
+      </div>
   )
 }
 
