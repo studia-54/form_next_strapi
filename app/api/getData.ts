@@ -13,10 +13,8 @@ export const fetchFields = async () => {
 
       const data = await response.json();
 
-      
-
       const resData = data.data[0]
-
+      
       return resData
       
     } catch (error) {
