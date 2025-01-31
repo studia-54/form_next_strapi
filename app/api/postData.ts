@@ -1,21 +1,22 @@
 const POST_API_URL = process.env.POST_API_URL
 const STRAPI_KEY = process.env.STRAPI_KEY
 
-export const postFields = async (url ="", data = {}) => {
+export const postFields = async ({ data }: any) => {
     try {
-       const response = await fetch(url, {
+       const response = await fetch(`${POST_API_URL}`, {
          method: "POST",
          headers: {
            'Content-Type': 'application/json',
            Authorization: `Bearer ${STRAPI_KEY}`
            },
            
-          body: JSON.stringify(data)
-          })
+          body: JSON.stringify(
+            data)
+        })
 
-        const data = await response.json()
+        const responseData = await response.json()
 
-        return data
+        return responseData
       }
       
      catch (error) {

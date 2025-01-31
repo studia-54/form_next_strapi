@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
@@ -47,12 +46,8 @@ const Range = ({
 
     return (
         <div className={styles.range__wrapper}>
-
-            
-
             <div
                 ref={tooltipRef}
-                
                 className={styles.range__tooltip}
             >
                 {value}
@@ -64,7 +59,7 @@ const Range = ({
                 <div className={styles.range__tooltip_default_ten}>10</div>
             )}
             <input
-            {...register(name)}
+                {...register(name)}
                 // TODO: Finish it
                 type="range"
                 min={min}
