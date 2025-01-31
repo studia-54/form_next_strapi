@@ -16,6 +16,12 @@ interface DynamicFormProps {
   // onSubmit: (data: any) => void
 }
 export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
+  
+  const onSubmit = async (data) => {
+    await postFields(data)
+    console.log(data)
+  }
+
   const router = useRouter();
 
   // const schema = createFormSchema(fields);
@@ -42,11 +48,6 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
       }
     });
   }, [selectedCheckboxes, selectedRadioItemId]);
-
-  const onSubmit = async (data) => {
-    await postFields(data)
-    console.log(data)
-  }
 
   const renderField = (question: Question) => {
     switch (question.type) {

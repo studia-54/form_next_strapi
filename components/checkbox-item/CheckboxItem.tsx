@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 import { Option } from "@/types/types";
 import { useFormContext } from 'react-hook-form';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL
 interface CheckboxItemProps {
     option: Option;
     name: string;
@@ -14,6 +14,8 @@ interface CheckboxItemProps {
 export const CheckboxItem: React.FC<CheckboxItemProps> = ({ option, name, selected, onClick }) => {  
   const { register } = useFormContext();
 
+  console.log(NEXT_PUBLIC_API_URL)
+
   return (
     <>
     <input {...register(name)} type="checkbox" checked={selected} value={name} style={{ display: 'none' }} />
@@ -23,7 +25,7 @@ export const CheckboxItem: React.FC<CheckboxItemProps> = ({ option, name, select
     >
         <label htmlFor='some'></label>
         <Image 
-            src={`${BASE_URL}${option.image.url}`}
+            src={`${NEXT_PUBLIC_API_URL}${option.image.url}`}
             alt={option.image.alternativeText}
             width={220}
             height={160}

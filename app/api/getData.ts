@@ -1,13 +1,13 @@
-const API_URL = process.env.API_URL
-const STRAPI_KEY = process.env.STRAPI_KEY
+const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL
+const NEXT_PUBLIC_STRAPI_KEY = process.env.NEXT_PUBLIC_STRAPI_KEY
 
 export const fetchFields = async () => {
     try {
-      const response = await fetch(`${API_URL}`, {
+      const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/forms?filters[slug][$eq]=form&fields[0]=title&fields[1]=slug&populate[questions][populate][options][populate][image][fields][0]=url&populate[questions][populate][options][populate][image][fields][1]=alternativeText`, {
         method: "GET",
         headers: {
            'Content-Type': 'application/json',
-           Authorization: `Bearer ${STRAPI_KEY}`
+           Authorization: `Bearer ${NEXT_PUBLIC_STRAPI_KEY}`
           },
       })
 
