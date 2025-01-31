@@ -20,8 +20,8 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
 
   const router = useRouter();
   
-  const schema = createFormSchema(fields);
-  const params = useSearchParams()
+  // const schema = createFormSchema(fields);
+  // const params = useSearchParams()
 
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<number[]>([]);
   const [selectedRadioItemId, setSelectedRadioItemId] = useState<number | null>(null);

@@ -68,7 +68,7 @@ const Range = ({
                 value={value}
                 onChange={(e) => setValue(Number(e.target.value))}
                 className={styles.form__range_input}
-                ref={rangeRef} 
+                ref={rangeRef} // TODO: problem with ref
             />
         </div>
     );

@@ -1,7 +1,7 @@
 const POST_API_URL = process.env.POST_API_URL
 const STRAPI_KEY = process.env.STRAPI_KEY
 
-export const postFields = async ({ data }: any) => {
+export const postFields = async (data) => {
     try {
        const response = await fetch(`${POST_API_URL}`, {
          method: "POST",
@@ -11,7 +11,8 @@ export const postFields = async ({ data }: any) => {
            },
            
           body: JSON.stringify(
-            data)
+            data
+          )
         })
 
         const responseData = await response.json()
@@ -20,6 +21,6 @@ export const postFields = async ({ data }: any) => {
       }
       
      catch (error) {
-      console.error('Error posting form fields:', error);
+      console.error(error);
     }
   };
