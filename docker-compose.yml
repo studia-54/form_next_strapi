@@ -1,0 +1,22 @@
+services:
+  nextapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV: production # Можно изменить при необходимости
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: production
+    networks:
+      - strapi
+    volumes:
+      - .:/opt/app
+      - /opt/app/node_modules
+    restart: unless-stopped
+
+networks:
+  strapi:
+    name: Strapi
+    driver: bridge
