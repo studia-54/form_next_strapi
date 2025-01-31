@@ -9,6 +9,7 @@
       border-color 0.25s ease;
     border: 1px transparent solid;
     border-radius: 3px;
+    filter: grayscale(1);
 }
 
 .form__checkbox_item_checked {
@@ -23,6 +24,7 @@
     transition: 
       filter 0.25s ease,
       border-color 0.25s ease;
+    filter: none;
 }
 
 .form__checkbox-item::before {

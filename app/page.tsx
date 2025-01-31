@@ -12,16 +12,12 @@ export default async function Home(props: {
   searchParams: SearchParams
 }) {
 
-  const params = await props.params
   const fields: Form = await fetchFields()
-  const searchParams = await props.searchParams
-  // console.log('super puper',params)
   
-
   return (
     <div className={styles.page}>
       {/* {fields.length > 0 ? */}
-       <DynamicForm fields={fields}/>
+       {/* <DynamicForm fields={fields}/> */}
         {/* : <p>Загрузка полей формы...</p> */}
     </div>
   )
