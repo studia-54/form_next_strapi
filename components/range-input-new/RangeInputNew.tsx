@@ -44,6 +44,8 @@ const Range = ({
         }
     }, [value, min, max]);
 
+    // const {ref, ...rest } = register(name)
+
     return (
         <div className={styles.range__wrapper}>
             <div
@@ -58,18 +60,22 @@ const Range = ({
             {(value < 10) && (
                 <div className={styles.range__tooltip_default_ten}>10</div>
             )}
-            <input
-                {...register(name)}
-                // TODO: Finish it
-                type="range"
-                min={min}
-                max={max}
-                step={step}
-                value={value}
-                onChange={(e) => setValue(Number(e.target.value))}
-                className={styles.form__range_input}
-                ref={rangeRef} // TODO: problem with ref
-            />
+            <div ref={rangeRef} className={styles.wrapper}>
+                <input
+                    // {...rest}
+                    {...register(name)}
+                    // TODO: Finish it
+                    type="range"
+                    min={min}
+                    max={max}
+                    step={step}
+                    value={value}
+                    onChange={(e) => setValue(Number(e.target.value))}
+                    className={styles.form__range_input}
+                    // TODO: problem with ref
+                />
+            </div>
+            
         </div>
     );
 };
