@@ -10,16 +10,14 @@ import RangeInput from "../range-input-new/RangeInputNew";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { postFields } from "@/app/api/postData";
-const POST_API_URL = process.env.POST_API_URL
 
 interface DynamicFormProps {
   fields: Form
   // onSubmit: (data: any) => void
 }
 export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
-
   const router = useRouter();
-  
+
   // const schema = createFormSchema(fields);
   // const params = useSearchParams()
 
