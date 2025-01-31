@@ -36,24 +36,24 @@ export const createFormSchema = (form: Form) => {
 
         switch (question.type) {
             case 'from-0_to-10':
-                fieldSchema = z
-                    .number()
-                    .min(0, 'Значение должно быть от 1 до 10')
-                    .max(10, 'Значение должно быть от 1 до 10');
+                fieldSchema = z.coerce
+                    .number({ errorMap: () => ( { message: 'Значение должно быть от 1 до 10' } ) } )
+                    .min(1)
+                    .max(10);
                 break;
             case 'checkboxes':
-                fieldSchema = z.array(z.number()).min(1, 'Выберите хотя бы один вариант');
+                fieldSchema = z.array(z.coerce.number(), { errorMap: () => ( { message: 'Выберите хотя бы один вариант' } ) });
                 break;
             case 'radiogroup':
-                fieldSchema = z
-                    .number()
+                fieldSchema = z.array(
+                    z.number({ coerce: true })
                     .nullable()
                     .refine((val) => val !== null, {
                         message: 'Выберите один вариант'
-                    });
+                    })).min(1);
                 break;
             case 'textarea':
-                fieldSchema = z.string().min(1, 'Это поле не может быть пустым');
+                fieldSchema = z.string({ errorMap: () => ( { message: 'Это поле не может быть пустым' } ) }).min(1);
                 break;
         }
 

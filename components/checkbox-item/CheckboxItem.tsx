@@ -7,21 +7,27 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 interface CheckboxItemProps {
     option: Option;
     name: string;
+    onClick: () => void;
+    selected?: boolean;
 }
 
-export const CheckboxItem: React.FC<CheckboxItemProps> = ({ option, name }) => {
+export const CheckboxItem: React.FC<CheckboxItemProps> = ({ option, name, selected, onClick }) => {  
   const { register } = useFormContext();
 
   return (
     <>
-    <div className={styles.form__checkbox_item_checked} {...register(name)}>
-        {/* <input type="checkbox" {...register(name)} /> */}
+    <input {...register(name)} type="checkbox" checked={selected} value={name} style={{ display: 'none' }} />
+    <div
+      className={selected ? styles.form__checkbox_item_checked : styles.form__checkbox_item}
+      onClick={onClick}
+    >
         <label htmlFor='some'></label>
         <Image 
             src={`${BASE_URL}${option.image.url}`}
             alt={option.image.alternativeText}
             width={220}
             height={160}
+            className={styles.form__checkbox_image}
         />
         <div className={styles.form__checkbox_text_container}>
           <span className={styles.form__checkbox_description}>{option.title}</span>

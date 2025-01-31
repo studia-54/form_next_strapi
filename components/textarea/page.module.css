@@ -9,7 +9,10 @@
             rgba(0, 0, 0, 0.1) 100%
         ),
         rgba(255, 255, 255, 0.05);
-    
+  }
+
+  .form__textarea_container:focus-within {
+    border: 0.6px #D38C37 solid;
   }
 
 .form__textarea {

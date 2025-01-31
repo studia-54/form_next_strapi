@@ -3,8 +3,6 @@ import { useFormContext } from 'react-hook-form';
 
 interface TextareaProps {
       name: string;
-      // value: string;
-      // onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   };
 
   export const Textarea: React.FC<TextareaProps> = ({ name }) => {
@@ -13,7 +11,7 @@ interface TextareaProps {
 
     return (
       <div className={styles.form__textarea_container}>
-        <input placeholder="Напишите" className={styles.form__textarea} {...register(name)} />
+        <textarea placeholder="Напишите" className={styles.form__textarea} {...register(name)}></textarea>
       </div>
     )
   }

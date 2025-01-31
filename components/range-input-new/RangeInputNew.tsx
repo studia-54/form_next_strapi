@@ -46,7 +46,10 @@ const Range = ({
     }, [value, min, max]);
 
     return (
-        <div className={styles.rangeWrapper}>
+        <div className={styles.range__wrapper}>
+
+            
+
             <div
                 ref={tooltipRef}
                 
@@ -54,9 +57,15 @@ const Range = ({
             >
                 {value}
             </div>
+            {(value > 0) && (
+                <div className={styles.range__tooltip_default_one}>0</div>
+            )}
+            {(value < 10) && (
+                <div className={styles.range__tooltip_default_ten}>10</div>
+            )}
             <input
-                ref={rangeRef}
-                {...register(name)}
+            {...register(name)}
+                // TODO: Finish it
                 type="range"
                 min={min}
                 max={max}
@@ -64,6 +73,7 @@ const Range = ({
                 value={value}
                 onChange={(e) => setValue(Number(e.target.value))}
                 className={styles.form__range_input}
+                ref={rangeRef} 
             />
         </div>
     );

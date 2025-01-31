@@ -4,8 +4,9 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
      {
-     protocol: "https",
-     hostname: "5kv2js7v-1337.euw.devtunnels.ms",
+     protocol: "http",
+     hostname: "192.168.89.1",
+     port: "1337"
      },
     ],
 },
