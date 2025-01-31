@@ -39,8 +39,6 @@ const Range = ({
         }
     }, [value, min, max]);
 
-    // const {ref, ...rest } = register(name)
-
     return (
         <div className={styles.range__wrapper}>
             <div
@@ -57,9 +55,7 @@ const Range = ({
             )}
             <div ref={rangeRef} className={styles.wrapper}>
                 <input
-                    // {...rest}
                     {...register(name)}
-                    // TODO: Finish it
                     type="range"
                     min={min}
                     max={max}
@@ -67,7 +63,6 @@ const Range = ({
                     value={value}
                     onChange={(e) => setValue(Number(e.target.value))}
                     className={styles.form__range_input}
-                    // TODO: problem with ref
                 />
             </div>
             

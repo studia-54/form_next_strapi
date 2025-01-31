@@ -8,8 +8,7 @@ import CheckboxItem from "../checkbox-item/CheckboxItem";
 import RadiogroupItem from "../radiogroup-item/RadiogroupItem";
 import RangeInput from "../range-input-new/RangeInputNew";
 import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-// import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { postFields } from "@/app/api/postData";
 
 interface DynamicFormProps {
@@ -17,11 +16,9 @@ interface DynamicFormProps {
   // onSubmit: (data: Form) => void
 }
 export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
-  // const params = useSearchParams()
   
   const onSubmit: SubmitHandler<Form> = async (data: Form) => {
-    await postFields(data)
-    console.log(data)
+    await postFields({data, params: Object.fromEntries(new URLSearchParams(window.location.search).entries())})
   }
 
   const router = useRouter();
@@ -47,6 +44,8 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
         });
       }
     });
+
+  
   }, [selectedCheckboxes, selectedRadioItemId]);
 
   const renderField = (question: Question) => {
@@ -62,7 +61,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
                 {question.options.map((option) => (
                   <CheckboxItem 
                       option={option} 
-                      name={`checkbox${option.id}`}
+                      name={`checkboxes${question.id}`}
                       key={option.id}
                       selected={selectedCheckboxes?.includes(option.id)}
                       onClick={() => {
@@ -90,7 +89,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
                {question.options.map((option) => (
                  <RadiogroupItem 
                     option={option} 
-                    name={`radiogroup${option.id}`}
+                    name={`radiogroup${question.id}`}
                     key={option.id}
                     selected={option.id === selectedRadioItemId}
                     onClick={() => setSelectedRadioItemId(option.id)}

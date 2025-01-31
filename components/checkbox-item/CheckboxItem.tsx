@@ -14,8 +14,6 @@ interface CheckboxItemProps {
 export const CheckboxItem: React.FC<CheckboxItemProps> = ({ option, name, selected, onClick }) => {  
   const { register } = useFormContext();
 
-  console.log(NEXT_PUBLIC_API_URL)
-
   return (
     <>
     <input {...register(name)} type="checkbox" checked={selected} value={name} style={{ display: 'none' }} />

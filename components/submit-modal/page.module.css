@@ -62,9 +62,6 @@
     transition: 0.2s;
 }
 
-.modal__close_icon {
-}
-
 
 @media (max-width: 477px) {
     .modal__root {
