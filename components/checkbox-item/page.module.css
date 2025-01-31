@@ -12,6 +12,10 @@
     filter: grayscale(1);
 }
 
+.form__checkbox_image {
+  height: 100%;
+}
+
 .form__checkbox_item_checked {
     filter: grayscale(0);
     border: 1px solid #D38C37;
@@ -24,7 +28,7 @@
     transition: 
       filter 0.25s ease,
       border-color 0.25s ease;
-    filter: none;
+      filter: none;
 }
 
 .form__checkbox-item::before {
