@@ -20,7 +20,6 @@ const Range = ({
     defaultValue = 0,
 }: RangeProps) => {
     const [value, setValue] = useState<number>(defaultValue);
-    const [width, setWidth] = useState<number>(0);
     const rangeRef = useRef<HTMLInputElement>(null);
     const tooltipRef = useRef<HTMLDivElement>(null);
 
@@ -28,12 +27,8 @@ const Range = ({
 
     useEffect(() => {
         if (rangeRef.current) {
-            const range = rangeRef.current;
+            // const range = rangeRef.current;
             const percent = ((value - min) / (max - min)) * 100;
-
-            if (tooltipRef.current) {
-                setWidth(tooltipRef.current.offsetWidth);
-            }
 
             const position = Math.min(Math.max(percent, 0), 100);
             if (tooltipRef.current) {

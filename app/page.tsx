@@ -7,12 +7,11 @@ import { fetchFields } from './api/getData';
 
 export default async function Home() {
   const fields: Form = await fetchFields()
-  
+
   return (
     <div className={styles.page}>
       {/* {fields.length > 0 ? */}
-       <DynamicForm fields={fields} 
-      //  onSubmit={handleSubmit}
+       <DynamicForm fields={fields}
        />
         {/* : <p>Загрузка полей формы...</p> */}
     </div>

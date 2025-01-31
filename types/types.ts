@@ -67,8 +67,6 @@ export const createFormSchema = (form: Form) => {
     return z.object(schemaFields);
 };
 
-import { z } from "zod"
-
 export type FieldType = "range" | "text" | "checkbox" | "radio" | "textarea"
 
 export interface BaseField {

@@ -1,7 +1,9 @@
+import { Form } from "@/types/types";
+
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL
 const NEXT_PUBLIC_STRAPI_KEY = process.env.NEXT_PUBLIC_STRAPI_KEY
 
-export const postFields = async (data) => {
+export const postFields = async (data: Form ) => {
     try {
        const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/get-forms-data`, {
          method: "POST",
@@ -11,7 +13,7 @@ export const postFields = async (data) => {
            },
           body: JSON.stringify({
             data: {
-              json: data
+              json: {data}
             }
           }
           )

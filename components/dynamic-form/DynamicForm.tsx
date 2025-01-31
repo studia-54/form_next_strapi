@@ -1,49 +1,49 @@
 "use client"
 
-import { useForm, FormProvider } from "react-hook-form"
+import { useForm, FormProvider, SubmitHandler } from "react-hook-form"
 import styles from "./page.module.css";
-import { createFormSchema, Form, Question } from "@/types/types"
+import { Form, Question } from "@/types/types"
 import Textarea from "../textarea/Textarea";
 import CheckboxItem from "../checkbox-item/CheckboxItem";
 import RadiogroupItem from "../radiogroup-item/RadiogroupItem";
 import RangeInput from "../range-input-new/RangeInputNew";
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import { postFields } from "@/app/api/postData";
 
 interface DynamicFormProps {
   fields: Form
-  // onSubmit: (data: any) => void
+  // onSubmit: (data: Form) => void
 }
 export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
+  // const params = useSearchParams()
   
-  const onSubmit = async (data) => {
+  const onSubmit: SubmitHandler<Form> = async (data: Form) => {
     await postFields(data)
     console.log(data)
   }
 
   const router = useRouter();
-
   // const schema = createFormSchema(fields);
-  // const params = useSearchParams()
 
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<number[]>([]);
   const [selectedRadioItemId, setSelectedRadioItemId] = useState<number | null>(null);
 
-  const methods = useForm();
+  const methods = useForm<Form>();
   const { formState: { errors }, setValue } = methods
 
   useEffect(() => {
-    fields.questions.map((item) => {
+    fields.questions.map((item: any) => {
       if (item.type === "checkboxes") {
-        item.options.map((option) => {
-          setValue(option.id.toString(), selectedCheckboxes.includes(option.id));
+        item.options.map((option: any) => {
+          setValue(item.id.toString(), selectedCheckboxes.includes(option.id));
         });
       }
 
       if (item.type === "radiogroup") {
-        item.options.map((option) => {
-          setValue(option.id.toString(), selectedRadioItemId === option.id);
+        item.options.map((option: any) => {
+          setValue(item.id.toString(), selectedRadioItemId === option.id);
         });
       }
     });
@@ -119,10 +119,11 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
                 <div key={field.title} className={styles.form__question}>
                   <label className={styles.form__label} htmlFor={field.title}>{`${index + 1}. ${field.title}`}</label>
                   {renderField(field)}
-                  {errors[field.id] && <p className={styles.form__error_text}>{errors[field.id]?.message as string}</p>}
+                  {/* {errors[field.id] && <p className={styles.form__error_text}>{errors[field.id]?.message as string}</p>} */}
                 </div>
               ))}
-              <button className={styles.form__submit_button} type="submit" onClick={() => router.push('/submit')}>Отправить</button>
+              <button className={styles.form__submit_button} type="submit" onClick={() => router.push('/submit')}
+              >Отправить</button>
           </form>
       </FormProvider>
     </div>
