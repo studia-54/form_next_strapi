@@ -8,17 +8,24 @@ import CheckboxItem from "../checkbox-item/CheckboxItem";
 import RadiogroupItem from "../radiogroup-item/RadiogroupItem";
 import RangeInput from "../range-input-new/RangeInputNew";
 import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { postFields } from "@/app/api/postData";
-import { useSearchParams } from "next/navigation";
 const POST_API_URL = process.env.POST_API_URL
 
 interface DynamicFormProps {
   fields: Form
   // onSubmit: (data: any) => void
 }
-
-
 export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
+
+    // const onSubmit = async (data) => {
+  //     await postFields(`${POST_API_URL}`, data).then((responseData) => {
+  //       console.log("Отправленные данные:", responseData)
+  //     });
+  // };
+
+  const router = useRouter();
+  
   const schema = createFormSchema(fields);
   const params = useSearchParams()
 
@@ -44,16 +51,9 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
     });
   }, [selectedCheckboxes, selectedRadioItemId]);
 
-  const onSubmit = async (data) => {
-      await postFields(`${POST_API_URL}`, data).then((responseData) => {
-        console.log("Отправленные данные:", responseData)
-      });
-
-  };
-
-  // const onSubmit = (data) => {
-  //   console.log(data)
-  // }
+  const onSubmit = (data) => {
+    console.log(data)
+  }
 
   const renderField = (question: Question) => {
     switch (question.type) {
@@ -128,7 +128,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
                   {errors[field.id] && <p className={styles.form__error_text}>{errors[field.id]?.message as string}</p>}
                 </div>
               ))}
-              <button className={styles.form__submit_button} type="submit">Отправить</button>
+              <button className={styles.form__submit_button} type="submit" onClick={() => router.push('/submit')}>Отправить</button>
           </form>
       </FormProvider>
     </div>

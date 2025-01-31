@@ -14,6 +14,11 @@
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
     z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
 }
 
 .modal__text {
@@ -22,6 +27,17 @@
     font-weight: 300;
     color: white;
     text-transform: uppercase;
+    line-height: 80px;
+    font-family: "GT-America-LC-Standard-Thin";
+}
+
+.modal__text_mobile {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 300;
+    color: white;
+    text-transform: uppercase;
+    display: none;
 }
 
 .modal__text_minor {
@@ -30,12 +46,38 @@
     font-weight: 300;
     color: white;
     text-transform: uppercase;
+    display: none;
 }
 
 .modal__close_button {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: 10px;
+    top: 9px;
+}
 
+.modal__close_button:hover {
+    color: gray;
+    transition: 0.2s;
 }
 
 .modal__close_icon {
-
 }
+
+
+@media (max-width: 477px) {
+    .modal__root {
+        max-width: 375px; 
+        margin: 10px;
+    }
+    .modal__text_mobile {
+        display: block;
+    }
+    .modal__text_minor {
+        display: block;
+    }
+    .modal__text {
+        display: none;
+    }
+  }
