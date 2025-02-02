@@ -35,7 +35,6 @@
 @media (max-width: 375px) {
     .form__title {
         font-size: 24px;
-        margin-bottom: 1.688rem;
         line-height: 30px;
         margin-bottom: 1.875rem;
     }
@@ -43,7 +42,7 @@
 
 .form__question {
     position: relative;
-    margin-bottom: 1.625rem;
+    margin-bottom: 0.75rem;
     font-size: 18px;
 }
 
@@ -58,6 +57,7 @@
 
 .form__checkboxes {
     padding: 20px 0px;
+    /* padding: 20px 0 0 0px; */
     display: grid;
     grid-template-columns: repeat(auto-fit, 220px);
     justify-content: center;
@@ -102,6 +102,7 @@
   border: none;
   text-transform: uppercase;
   cursor: pointer;
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {
@@ -175,6 +176,20 @@
 
 .form__error_text {
   color: #c52f2f;
+  /* margin-top: 1.2rem; */
+  font-size: 14px;
+  opacity: 1;
+  height: 14px;
+}
+
+.form__error_text_hidden {
+  opacity: 0;
   margin-top: 1.2rem;
   font-size: 14px;
+  height: 14px;
+}
+
+.form__errors_container {
+  height: 14px;
+  margin-bottom: 14px;
 }

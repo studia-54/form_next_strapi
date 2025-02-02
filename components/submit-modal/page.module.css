@@ -62,7 +62,6 @@
     transition: 0.2s;
 }
 
-
 @media (max-width: 477px) {
     .modal__root {
         max-width: 375px; 

@@ -6,18 +6,14 @@ import { notFound } from "next/navigation";
 type Params = Promise<{ slug: string }>
 
 export default async function ({ params }: { params: Params }) {
-  const { slug } = await params
+    const { slug } = await params
+    const fields: Form = await fetchFields().catch((error) => { alert(`Ошибка получения полей формы: ${error}`) })
 
-  const fields: Form = await fetchFields()
-  console.log(fields.slug)
-
-      if (fields.slug !== slug) return notFound()
-      
-
+    if (fields.slug !== slug) return notFound()
+        
     return (
         <>
             <DynamicForm fields={fields}/>
         </>
       )
 }
-

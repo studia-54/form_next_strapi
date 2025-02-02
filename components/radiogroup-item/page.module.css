@@ -1,49 +1,46 @@
-.form__radiogroup_item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    cursor: pointer;
-    width: 160px;
-    height: 70px;
-    overflow: hidden;
-    position: relative;
-    filter: grayscale(1);
-    transition: 
-      filter 0.25s ease,
-      border-color 0.25s ease;
-    border: 1px transparent solid;
-    border-radius: 3px;
-    background: linear-gradient(
-            180deg,
-            rgba(0, 0, 0, 0.1) 0%,
-            rgba(0, 0, 0, 0.1) 100%
-        ),
-        rgba(255, 255, 255, 0.05);
+.radio_container {
+  position: relative;
+  width: 160px;
+  height: 70px;
 }
 
-.form__radiogroup_item_checked {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    cursor: pointer;
-    width: 160px;
-    height: 70px;
-    overflow: hidden;
-    position: relative;
-    transition: 
-      filter 0.25s ease,
-      border-color 0.25s ease;
-    border: 1px transparent solid;
-    border-radius: 3px;
-    background: linear-gradient(
-            180deg,
-            rgba(0, 0, 0, 0.1) 0%,
-            rgba(0, 0, 0, 0.1) 100%
-        ),
-        rgba(255, 255, 255, 0.05);
-    border: 0.5px solid #D38C37;
+.radio_container input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0;
+}
+ 
+ .form__radiogroup_item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  width: 160px;
+  height: 70px;
+  overflow: hidden;
+  position: relative;
+  filter: grayscale(1);
+  transition: 
+    filter 0.25s ease,
+    border-color 0.25s ease;
+  border: 1px transparent solid;
+  border-radius: 3px;
+  background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.1) 0%,
+          rgba(0, 0, 0, 0.1) 100%
+      ),
+      rgba(255, 255, 255, 0.05);
+}
+
+input:checked + .form__radiogroup_item {
+  border: 0.5px solid #D38C37;
+  filter: none;
 }
 
 .form__radiogroup_text {
@@ -52,4 +49,4 @@
   line-height: 17.5px;
   color: rgba(255, 255, 255, 1);
   padding: 0 10px;
-}
+  }
