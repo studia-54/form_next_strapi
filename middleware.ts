@@ -1,30 +1,24 @@
 import { NextResponse } from 'next/server'
 
 //@ts-ignore
-export function middleware(req) {
-  const origin = req.headers.get('origin')
+export function middleware(request) {
+  const response = NextResponse.next()
 
-  const allowedOrigins = [
-    'https://studia-54.com',
-    'https://fiftyfourms.com',
-    'http://localhost:5173',
-    'http://localhost:4173',
-    'http://localhost:3000',
-  ]
+  // Настройка CORS для вашего родительского сайта
+  response.headers.set('Access-Control-Allow-Origin', '*')
+  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+  response.headers.set('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept')
 
-  const res = NextResponse.next()
+  // Обработка preflight запросов (OPTIONS)
+  if (request.method === 'OPTIONS') {
+    //@ts-ignore
+    response.status = 204
+    return response
+  }
 
-  res.headers.set('Access-Control-Allow-Origin', '*')
-
-  res.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-  res.headers.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type')
-
-  // Устанавливаем правильные настройки для iframe
-  res.headers.set('Content-Security-Policy', "frame-ancestors 'self' *")
-
-  return res
+  return response
 }
 
 export const config = {
-  matcher: '/:path*', // Применяется ко всем роутам
+  matcher: '/api/:path*', // Применяется только к API-запросам
 }
