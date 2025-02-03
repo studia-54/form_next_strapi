@@ -32,7 +32,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
     console.log(data)
   }
 
-  console.log(errors);
+  // console.log(errors);
 
   useEffect(() => {
     fields.questions.map((item: any) => {

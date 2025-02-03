@@ -2,7 +2,6 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { Option } from "@/types/types";
 import { useFormContext } from 'react-hook-form';
-import img from '@/shared/Background.jpg';
 
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL
 interface CheckboxItemProps {
@@ -25,9 +24,9 @@ export const CheckboxItem: React.FC<CheckboxItemProps> = ({ option, name, select
         onClick={onClick}
       >
           {/* <label htmlFor='some'></label> */}
-          <Image 
-              // src={`${NEXT_PUBLIC_API_URL}${option.image.url}`}
-              src={img}
+          <Image
+              src={`${NEXT_PUBLIC_API_URL}${option.image.url}`}
+              priority
               alt={option.image.alternativeText}
               width={220}
               height={160}
