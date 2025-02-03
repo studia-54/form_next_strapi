@@ -1,5 +1,6 @@
 .checkbox_container {
   position: relative;
+  height: 160px;
 }
 
 .checkbox_container input {
@@ -89,6 +90,9 @@ input:checked + .form__checkbox_item {
 }
 
 @media (max-width: 768px) {
+  .checkbox_container {
+    height: 224px;
+  }
   .form__checkbox_item_checked {
     overflow: visible;
     position: relative;

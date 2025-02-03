@@ -2,6 +2,7 @@
   position: relative;
   width: 160px;
   height: 70px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.1) 100%), linear-gradient(0deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
 }
 
 .radio_container input {
