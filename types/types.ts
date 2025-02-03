@@ -110,20 +110,16 @@ export const createFormSchema = (form: Form) => {
       } else {
           switch (question.type) {
               case 'from-0_to-10':
-                  schemaFields[`from-0_to-10:${question.id}`] =
-                      fieldSchema.optional();
+                  schemaFields[`from-0_to-10:${question.id}`] = z.coerce.string().optional()
                   break;
               case 'checkboxes':
-                  schemaFields[`checkboxes:${question.id}`] =
-                      fieldSchema.optional();
+                  schemaFields[`checkboxes:${question.id}`] = z.coerce.string().optional()
                   break;
               case 'radiogroup':
-                  schemaFields[`radiogroup:${question.id}`] =
-                      fieldSchema.optional();
+                  schemaFields[`radiogroup:${question.id}`] = z.coerce.string().optional()
                   break;
               case 'textarea':
-                  schemaFields[`textarea:${question.id}`] =
-                      fieldSchema.optional();
+                  schemaFields[`textarea:${question.id}`] = z.coerce.string().optional()
                   break;
               default:
                   throw new Error(
