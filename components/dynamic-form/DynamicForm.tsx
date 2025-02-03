@@ -12,6 +12,7 @@ import { Fragment, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { postFields } from "@/app/api/postData";
 import { z } from "zod";
+import SubmitModal from "../submit-modal/SubmitModal";
 interface DynamicFormProps {
   fields: Form,
   // onSubmit: (data: Form) => void
@@ -19,6 +20,7 @@ interface DynamicFormProps {
 export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<number[]>([]);
   const [selectedRadioItemId, setSelectedRadioItemId] = useState<number | null>(null);
+  const [success, setSuccess] = useState(false);
 
   const router = useRouter();
   const schema = createFormSchema(fields);
@@ -28,11 +30,11 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
   const onSubmit: SubmitHandler<Form> = async (data: Form) => {
     await postFields({data, params: Object.fromEntries(new URLSearchParams(window.location.search).entries())})
       .catch((error) => { alert(`Ошибка отправки полей формы: ${error}`) })
-      router.push('/submit')
     console.log(data)
+    setSuccess(true);
   }
 
-  // console.log(errors);
+  console.log(fields);
 
   useEffect(() => {
     fields.questions.map((item: any) => {
@@ -105,6 +107,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
         return (
           <Textarea
             name={`textarea:${question.id}`}
+            placeholder={question.placeholder}
           />
         )
       default:
@@ -113,7 +116,9 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
   }
   return (
     <div className={styles.page}>
-      <FormProvider {...methods}>
+       {success && <SubmitModal fields={fields} />}
+       {!success && ( 
+        <FormProvider {...methods}>
         {/* TODO: remome any */}
         <form onSubmit={methods.handleSubmit(onSubmit as any)} className={styles.form__container}> 
             <h1 className={styles.form__title}>{fields.title}</h1>
@@ -162,13 +167,15 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
                                   </p>
                               )}
                             </div>
+
                             </Fragment>
-                            
                         );
-                    })} 
-              <button className={Object.keys(errors).length === 0 ? styles.form__submit_button : styles.form__submit_button_default} type="submit">Отправить</button>
+                    })}
+            <button className={Object.keys(errors).length === 0 ? styles.form__submit_button : styles.form__submit_button_default} type="submit">{fields.submitButton}</button>
           </form>
       </FormProvider>
+       )}
+      
     </div>
   )
 }

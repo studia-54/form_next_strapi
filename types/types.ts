@@ -16,6 +16,7 @@ export interface Option {
     type: 'from-0_to-10' | 'checkboxes' | 'radiogroup' | 'textarea';
     required: boolean;
     options: Option[];
+    placeholder?: string;
     }
     
     export interface Form {
@@ -24,6 +25,8 @@ export interface Option {
     title: string;
     slug: string;
     questions: Question[];
+    submitButton: string;
+    successfullyMessage: string;
     }
     
     export type FieldType = "range" | "text" | "checkbox" | "radio" | "textarea"

@@ -1,5 +1,5 @@
 .modal__root {
-    margin: 0 auto;
+    /* margin: 0 auto; */
     border-radius: 0;
     background-color: rgb(0, 0, 0, 0.8);
     padding: 30px;
@@ -7,7 +7,7 @@
     width: 100%;
     max-width: 670px;
     padding: 61px 0;
-    margin: 50px auto;
+    /* margin: 50px auto; */
     background-color: rgb(0, 0, 0, 0.7);
     border-radius: 6px;
     color: #ffffff;
@@ -19,6 +19,7 @@
     align-items: center;
     gap: 10px;
     position: relative;
+    /* display: none; */
 }
 
 .modal__text {
