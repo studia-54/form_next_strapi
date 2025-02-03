@@ -24,7 +24,9 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
 
   const router = useRouter();
   const schema = createFormSchema(fields);
-  const methods = useForm({ resolver: zodResolver(schema) });
+  const methods = useForm(
+    // { resolver: zodResolver(schema) }
+  );
   const { formState: { errors }, setValue } = methods
 
   const onSubmit: SubmitHandler<Form> = async (data: Form) => {

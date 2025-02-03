@@ -71,7 +71,8 @@ export const createFormSchema = (form: Form) => {
               fieldSchema = z.coerce.number().min(1, { message: 'Значение должно быть от 1 до 10' });
               break;
           case 'checkboxes':
-              fieldSchema = z.coerce.string().min(1, { message: 'Выберите хотя бы одно поле' }).refine(string => string !== "false", { message: 'Выберите хотя бы одно поле' });
+            //   fieldSchema = z.coerce.string().min(1, { message: 'Выберите хотя бы одно поле' }).refine(string => string !== "false", { message: 'Выберите хотя бы одно поле' });
+            fieldSchema = z.array(z.string().min(1, { message: 'Выберите хотя бы одно поле' }))
               break;
           case 'radiogroup':
               fieldSchema = z.coerce.string().min(1, { message: 'Выберите одно значение' }).refine(string => string !== "null", { message: 'Выберите одно значение' });
