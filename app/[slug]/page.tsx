@@ -11,6 +11,8 @@ export default async function ({ params }: { params: Params }) {
     const fields: Form = await fetchFields(slug).catch((error) => { alert(`Ошибка получения полей формы: ${error}`) })
 
     if (fields.slug !== slug) return notFound()
+
+        console.log(fields)
         
     return (
         <>
