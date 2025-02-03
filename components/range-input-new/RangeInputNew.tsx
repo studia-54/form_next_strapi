@@ -65,7 +65,6 @@ const Range = ({
                 <div className={styles.range__tooltip_default_ten}>10</div>
             )}
 
-            
                 <input 
                     type="range"
                     min={min}
