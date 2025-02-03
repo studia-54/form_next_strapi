@@ -10,13 +10,13 @@ export interface Option {
         alternativeText: string;
     }
     }
-    
     export interface Question {
     id: number;
     title: string;
     type: 'from-0_to-10' | 'checkboxes' | 'radiogroup' | 'textarea';
     required: boolean;
     options: Option[];
+    placeholder?: string;
     }
     
     export interface Form {
@@ -25,114 +25,113 @@ export interface Option {
     title: string;
     slug: string;
     questions: Question[];
+    submitButton: string;
+    successfullyMessage: string;
     }
     
+    export type FieldType = "range" | "text" | "checkbox" | "radio" | "textarea"
+
+    export interface BaseField {
+      type: FieldType
+      title: string
+    }
+    
+    export interface RangeField extends BaseField {
+      type: "range"
+    }
+    
+    export interface TextField extends BaseField {
+      type: "text"
+    }
+    
+    export interface CheckboxField extends BaseField {
+      type: "checkbox"
+      options: { id: string; label: string; image: string }[]
+    }
+    
+    export interface RadioField extends BaseField {
+      type: "radio"
+      options: { id: string; label: string }[]
+    }
+    
+    export interface TextareaField extends BaseField {
+      type: "textarea"
+    }
+    
+    export type FormField = RangeField | TextField | CheckboxField | RadioField | TextareaField
 
 export const createFormSchema = (form: Form) => {
-    const schemaFields: Record<string, z.ZodTypeAny> = {};
+  const schemaFields: Record<string, z.ZodTypeAny> = {};
 
-    form.questions.forEach((question) => {
-        let fieldSchema: z.ZodTypeAny;
+  form.questions.forEach((question) => {
+      let fieldSchema: z.ZodTypeAny;
 
-        switch (question.type) {
-            case 'from-0_to-10':
-                fieldSchema = z.coerce
-                    .number({ errorMap: () => ( { message: 'Значение должно быть от 1 до 10' } ) } )
-                    .min(1)
-                    .max(10);
-                break;
-            case 'checkboxes':
-                fieldSchema = z.array(z.coerce.number(), { errorMap: () => ( { message: 'Выберите хотя бы один вариант' } ) });
-                break;
-            case 'radiogroup':
-                fieldSchema = z.array(
-                    z.number({ coerce: true })
-                    .nullable()
-                    .refine((val) => val !== null, {
-                        message: 'Выберите один вариант'
-                    })).min(1);
-                break;
-            case 'textarea':
-                fieldSchema = z.string({ errorMap: () => ( { message: 'Это поле не может быть пустым' } ) }).min(1);
-                break;
-        }
+      switch (question.type) {
+          case 'from-0_to-10':
+              fieldSchema = z.coerce.number().min(1, { message: 'Значение должно быть от 1 до 10' });
+              break;
+          case 'checkboxes':
+            //   fieldSchema = z.coerce.string().min(1, { message: 'Выберите хотя бы одно поле' }).refine(string => string !== "false", { message: 'Выберите хотя бы одно поле' });
+            fieldSchema = z.array(z.string().min(1, { message: 'Выберите хотя бы одно поле' }))
+              break;
+          case 'radiogroup':
+              fieldSchema = z.coerce.string().min(1, { message: 'Выберите одно значение' }).refine(string => string !== "null", { message: 'Выберите одно значение' });
+              break;
+          case 'textarea':
+              fieldSchema = z
+                  .string({
+                      errorMap: () => ({
+                          message: 'Это поле не может быть пустым',
+                      }),
+                  })
+                  .min(1, { message: 'Это поле не может быть пустым' });
+              break;
+          default:
+              throw new Error(`Неизвестный тип вопроса: ${question.type}`);
+      }
 
-        if (question.required) {
-            schemaFields[question.id.toString()] = fieldSchema;
-        } else {
-            schemaFields[question.id.toString()] = fieldSchema.optional();
-        }
-    });
+      // Если поле обязательное, то делаем его обязательным в схеме
+      if (question.required) {
+          switch (question.type) {
+              case 'from-0_to-10':
+                  schemaFields[`from-0_to-10:${question.id}`] = fieldSchema;
+                  break;
+              case 'checkboxes':
+                  schemaFields[`checkboxes:${question.id}`] = fieldSchema;
+                  break;
+              case 'radiogroup':
+                  schemaFields[`radiogroup:${question.id}`] = fieldSchema;
+                  break;
+              case 'textarea':
+                  schemaFields[`textarea:${question.id}`] = fieldSchema;
+                  break;
+              default:
+                  throw new Error(
+                      `Неизвестный тип вопроса: ${question.type}`
+                  );
+          }
+          // schemaFields[question.id.toString()] = fieldSchema;
+      } else {
+          switch (question.type) {
+              case 'from-0_to-10':
+                  schemaFields[`from-0_to-10:${question.id}`] = z.coerce.string().optional()
+                  break;
+              case 'checkboxes':
+                  schemaFields[`checkboxes:${question.id}`] = z.coerce.string().optional()
+                  break;
+              case 'radiogroup':
+                  schemaFields[`radiogroup:${question.id}`] = z.coerce.string().optional()
+                  break;
+              case 'textarea':
+                  schemaFields[`textarea:${question.id}`] = z.coerce.string().optional()
+                  break;
+              default:
+                  throw new Error(
+                      `Неизвестный тип вопроса: ${question.type}`
+                  );
+          }
+      }
+  });
 
-    return z.object(schemaFields);
+  return z.object(schemaFields);
 };
-
-export type FieldType = "range" | "text" | "checkbox" | "radio" | "textarea"
-
-export interface BaseField {
-  type: FieldType
-  title: string
-}
-
-export interface RangeField extends BaseField {
-  type: "range"
-}
-
-export interface TextField extends BaseField {
-  type: "text"
-}
-
-export interface CheckboxField extends BaseField {
-  type: "checkbox"
-  options: { id: string; label: string; image: string }[]
-}
-
-export interface RadioField extends BaseField {
-  type: "radio"
-  options: { id: string; label: string }[]
-}
-
-export interface TextareaField extends BaseField {
-  type: "textarea"
-}
-
-export type FormField = RangeField | TextField | CheckboxField | RadioField | TextareaField
-
-export const fieldSchema = z.discriminatedUnion("type", [
-  z.object({
-    type: z.literal("range"),
-    title: z.string(),
-  }),
-  z.object({
-    type: z.literal("text"),
-    title: z.string(),
-  }),
-  z.object({
-    type: z.literal("checkbox"),
-    title: z.string(),
-    options: z.array(
-      z.object({
-        id: z.string(),
-        label: z.string(),
-        image: z.string(),
-      }),
-    ),
-  }),
-  z.object({
-    type: z.literal("radio"),
-    title: z.string(),
-    options: z.array(
-      z.object({
-        id: z.string(),
-        label: z.string(),
-      }),
-    ),
-  }),
-  z.object({
-    type: z.literal("textarea"),
-    title: z.string(),
-  }),
-])
-
-export const formSchema = z.array(fieldSchema)
-

@@ -3,18 +3,17 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
     font-family: "GT-America-LC-Standard-Thin";
-    background-image: url(../../shared/Background.jpg);
     width: 100%;
 }
 
 .form__container {
     width: 100%;
-    max-width: 870px;
+    /* max-width: 870px; */
     padding: 35px 70px;
-    margin: 58px auto;
+    /* margin: 58px auto; for centring */
     background-color: #151515CC;
     /* opacity: 80%; */
     border-radius: 30px;
@@ -35,7 +34,6 @@
 @media (max-width: 375px) {
     .form__title {
         font-size: 24px;
-        margin-bottom: 1.688rem;
         line-height: 30px;
         margin-bottom: 1.875rem;
     }
@@ -43,7 +41,7 @@
 
 .form__question {
     position: relative;
-    margin-bottom: 1.625rem;
+    margin-bottom: 0.75rem;
     font-size: 18px;
 }
 
@@ -58,6 +56,7 @@
 
 .form__checkboxes {
     padding: 20px 0px;
+    /* padding: 20px 0 0 0px; */
     display: grid;
     grid-template-columns: repeat(auto-fit, 220px);
     justify-content: center;
@@ -77,31 +76,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 730px;
+  /* max-width: 730px; */
   border-radius: 3px;
   padding: 15px 0px;
-  min-width: 343.49px;
+  /* min-width: 343.49px; */
   color: white;
   background-color: #D38C37;
   border: none;
   text-transform: uppercase;
   cursor: pointer;
+  font-size: 12px;
 }
 
 .form__submit_button_default {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 730px;
+  /* max-width: 730px; */
   border-radius: 3px;
   padding: 15px 0px;
-  min-width: 343.49px;
+  /* min-width: 343.49px; */
   color: white;
   background-color: #595959;
   border: 1px solid #000000;
   border: none;
   text-transform: uppercase;
   cursor: pointer;
+  pointer-events: none;
+  font-size: 12px;
 }
 
 @media (max-width: 768px) {
@@ -175,6 +177,20 @@
 
 .form__error_text {
   color: #c52f2f;
+  /* margin-top: 1.2rem; */
+  font-size: 14px;
+  opacity: 1;
+  height: 14px;
+}
+
+.form__error_text_hidden {
+  opacity: 0;
   margin-top: 1.2rem;
   font-size: 14px;
+  height: 14px;
+}
+
+.form__errors_container {
+  height: 14px;
+  margin-bottom: 14px;
 }

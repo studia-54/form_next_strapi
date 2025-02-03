@@ -12,7 +12,7 @@ export default async function Home(props: {
   searchParams: SearchParams
 }) {
 
-  const fields: Form = await fetchFields()
+  // const fields: Form = await fetchFields()
   
   return (
     <div className={styles.page}>

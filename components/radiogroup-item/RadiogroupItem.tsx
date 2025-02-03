@@ -13,19 +13,18 @@ export const RadiogroupItem: React.FC<RadiogroupItemProps>  = ({ option, name, s
 
   return (
     <>
+    <div className={styles.radio_container}>
       <input
-        {...register(name)}
-        type="radio"
-        checked={selected}
-        className={styles.question__option}
-        value={option.id}
-        id={option.id.toString()}
-        style={{ display: "none" }}
-      />
-
-      <div key={option.id} className={selected ? styles.form__radiogroup_item_checked : styles.form__radiogroup_item} onClick={onClick}> 
-        <div className={styles.form__radiogroup_text} id={option.id.toString()}>{option.title}</div>
-      </div>
+          {...register(name)}
+          type="radio"
+          className={styles.radio_input }
+          value={option.title}
+          id={option.id.toString()}
+        />
+          <div key={option.id} className={selected ? styles.form__radiogroup_item_checked : styles.form__radiogroup_item} onClick={onClick}> 
+            <div className={styles.form__radiogroup_text} id={option.id.toString()}>{option.title}</div>
+          </div>
+    </div>
     </>
   )
 }

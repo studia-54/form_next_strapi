@@ -3,12 +3,13 @@
     height: 129px;
     padding: 10px 20px;
     border-radius: 6px;
-    background: linear-gradient(
+    /* background: linear-gradient(
             180deg,
             rgba(0, 0, 0, 0.1) 0%,
             rgba(0, 0, 0, 0.1) 100%
         ),
-        rgba(255, 255, 255, 0.05);
+        rgba(255, 255, 255, 0.05); */
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.1) 100%), linear-gradient(0deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
   }
 
   .form__textarea_container:focus-within {
@@ -20,4 +21,11 @@
     width: 100%;
     resize: none;
     color: rgba(216, 216, 216, 1);
+}
+
+.form__textarea::placeholder {
+  color: #D8D8D8;
+  font-size: 14px;
+  font-weight: 275;
+  line-height: 19.6px;
 }
