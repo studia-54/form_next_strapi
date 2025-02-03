@@ -30,11 +30,9 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
   const onSubmit: SubmitHandler<Form> = async (data: Form) => {
     await postFields({data, params: Object.fromEntries(new URLSearchParams(window.location.search).entries())})
       .catch((error) => { alert(`Ошибка отправки полей формы: ${error}`) })
-    console.log(data)
+    // console.log(data)
     setSuccess(true);
   }
-
-  console.log(fields);
 
   useEffect(() => {
     fields.questions.map((item: any) => {

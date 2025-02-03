@@ -8,7 +8,7 @@ interface SubmitModalProps {
 }
 
 export const SubmitModal: React.FC<SubmitModalProps>  = ({ fields }) => {
-  console.log(fields)
+    // console.log(fields)
     // const router = useRouter();
   return (
     <>
