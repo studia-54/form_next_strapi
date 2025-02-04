@@ -42,7 +42,6 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
         }).catch((error) => {
             alert(`Ошибка отправки полей формы: ${error}`);
         });
-        console.log(data);
         setSuccess(true);
     };
 
