@@ -7,6 +7,7 @@
     align-items: center; */
     font-family: "GT-America-LC-Standard-Thin";
     width: 100%;
+    container-type: inline-size;
 }
 
 .form__container {
@@ -31,28 +32,47 @@
     line-height: 80px;
 }
 
+/* .wrapper {
+  container: card / inline-size;
+  } */
+  
+/* @container (min-width: 375px) {
+    .form__title {
+      font-size: 44px;
+      line-height: 45px;
+      margin-bottom: 1.875rem;
+    }
+  } */
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .form__title {
     font-size: 44px;
-    line-height: 30px;
+    line-height: 45px;
     margin-bottom: 1.875rem;
   }
-}
+} */
 
-@media (max-width: 375px) {
-    .form__title {
+@media (min-width: 249px) {
+    .form__container h1 {
         font-size: 24px;
         line-height: 30px;
         margin-bottom: 1.875rem;
     }
 }
 
-@media (max-width: 477px) {
-  .form__title {
-      font-size: 24px;
-      line-height: 30px;
+@media (min-width: 477px) {
+  .form__container h1 {
+      font-size: 44px;
+      line-height: 50px;
       margin-bottom: 1.875rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .form__container h1 {
+    font-size: 64px;
+    line-height: 80px;
+    margin-bottom: 1.875rem;
   }
 }
 
