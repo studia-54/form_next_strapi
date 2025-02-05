@@ -1,23 +1,63 @@
+import { fields } from '@hookform/resolvers/ajv/src/__tests__/__fixtures__/data.js'
+import qs from 'qs'
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL
 const NEXT_PUBLIC_STRAPI_KEY = process.env.NEXT_PUBLIC_STRAPI_KEY
 
 export const fetchFields = async (slug: string) => {
+  const query = qs.stringify(
+    {
+      filters: {
+        slug: {
+          $eq: `${slug}`,
+        },
+      },
+      fields: ['title', 'slug', 'submitButton', 'successfullyMessage'],
+      populate: {
+        questions: {
+          fields: ['title', 'placeholder', 'type', 'required'],
+          populate: {
+            options: {
+              populate: {
+                image: {
+                  fields: ['url', 'alternativeText'],
+                },
+              },
+            },
+          },
+        },
+        actions: {
+          on: {
+            'bitrix-actions.save-in-deal': {
+              /**
+               * todo:
+               * Не использовать * в запросе.
+               * Добавить fields и токлько необходимые поля в populate
+               */
+              populate: '*',
+            },
+          },
+        },
+      },
+      status: 'published',
+    },
+    { encodeValuesOnly: true }
+  )
+
   try {
-    const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/forms?filters[slug][$eq]=${slug}&fields[0]=title&fields[1]=slug&fields[2]=submitButton&fields[3]=successfullyMessage&populate[questions][fields][0]=title&populate[questions][fields][1]=placeholder&populate[questions][fields][2]=type&populate[questions][fields][3]=required&populate[questions][populate][options][populate][image][fields][0]=url&populate[questions][populate][options][populate][image][fields][1]=alternativeText&status=published`, {
-      method: "GET",
+    const response = await fetch(`${NEXT_PUBLIC_API_URL}/api/forms?${query}`, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${NEXT_PUBLIC_STRAPI_KEY}`
+        Authorization: `Bearer ${NEXT_PUBLIC_STRAPI_KEY}`,
       },
-    });
+    })
 
-    const data = await response.json();
+    const data = await response.json()
 
-    const resData = data.data[0];
+    const resData = data.data[0]
 
-    return resData;
-
+    return resData
   } catch (error) {
-    console.error('Error fetching form fields:', error);
+    console.error('Error fetching form fields:', error)
   }
-};
+}

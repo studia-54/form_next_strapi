@@ -13,11 +13,16 @@ import { useRouter } from 'next/navigation'
 import { postFields } from '@/app/api/postData'
 import { z } from 'zod'
 import SubmitModal from '../submit-modal/SubmitModal'
+
+type FormFields = Record<string, any>
+
 interface DynamicFormProps {
   fields: Form
+  afterSubmit: (data: FormFields, params: Record<string, string>, fields: Form) => Promise<void>
   // onSubmit: (data: Form) => void
 }
-export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
+
+export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit }) => {
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<number[]>([])
   const [selectedRadioItemId, setSelectedRadioItemId] = useState<number | null>(null)
   const [success, setSuccess] = useState(false)
@@ -31,13 +36,20 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
     setValue,
   } = methods
 
-  const onSubmit: SubmitHandler<Form> = async (data: Form) => {
-    await postFields({
-      data,
-      params: Object.fromEntries(new URLSearchParams(window.location.search).entries()),
-    }).catch((error) => {
-      alert(`Ошибка отправки полей формы: ${error}`)
-    })
+  const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
+    const params = Object.fromEntries(new URLSearchParams(window.location.search).entries())
+    await Promise.all([
+      afterSubmit(data, params, fields).catch(() => {
+        alert(`Ошибка попробуйте еще раз позже`)
+      }),
+      postFields({
+        data,
+        params,
+      }).catch((error) => {
+        console.error(error)
+        alert(`Ошибка попробуйте еще раз позже`)
+      }),
+    ])
     setSuccess(true)
   }
 
@@ -76,10 +88,11 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
     }
   }, [])
 
-  const renderField = (question: Question) => {
+  const renderField = (question: Question, index: number) => {
+    const name = (index + 1).toString()
     switch (question.type) {
       case 'from-0_to-10':
-        return <RangeInput name={`from-0_to-10:${question.id}`} />
+        return <RangeInput name={name} />
       case 'checkboxes':
         return (
           <>
@@ -87,7 +100,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
               {question.options.map((option) => (
                 <CheckboxItem
                   option={option}
-                  name={`checkboxes:${question.id}`}
+                  name={name}
                   key={option.id}
                   selected={selectedCheckboxes?.includes(option.id)}
                   onClick={() => {
@@ -116,7 +129,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
             {question.options.map((option) => (
               <RadiogroupItem
                 option={option}
-                name={`radiogroup:${question.id}`}
+                name={name}
                 key={option.id}
                 selected={option.id === selectedRadioItemId}
                 onClick={() => setSelectedRadioItemId(option.id)}
@@ -125,7 +138,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
           </div>
         )
       case 'textarea':
-        return <Textarea name={`textarea:${question.id}`} placeholder={question.placeholder} />
+        return <Textarea name={name} placeholder={question.placeholder} />
       default:
         return null
     }
@@ -165,7 +178,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
                       {`${index + 1}. ${field.title}`}
                     </label>
 
-                    {renderField(field)}
+                    {renderField(field, index)}
                   </div>
                   <div className={styles.form__errors_container}>
                     {errors[`${type}:${field.id}`] && (
