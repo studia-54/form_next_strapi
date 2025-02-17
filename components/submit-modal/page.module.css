@@ -23,7 +23,7 @@
 }
 
 .modal__text {
-    font-size: 24px;
+    font-size: clamp(24px, 23.5146px + 0.1294vw, 26px);
     line-height: 30px;
     font-weight: 300;
     color: white;
@@ -84,5 +84,5 @@
     border: none;
     text-transform: uppercase;
     cursor: pointer;
-    font-size: 13px;
+    font-size: clamp(12px, 10.7864px + 0.3236vw, 17px);
   }
