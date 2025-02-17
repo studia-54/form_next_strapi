@@ -56,7 +56,6 @@
 
 @media (max-width: 477px) {
     .modal__root {
-        /* max-width: 375px;  */
         margin: 10px;
     }
     .modal__text {
@@ -72,16 +71,14 @@
     color: #d38c37;
   }
 
-  .modal__text button {
+  .modal__text a {
     margin-top: 50px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* max-width: 730px; */
     border-radius: 3px;
     padding: 15px 0px;
-    /* min-width: 343.49px; */
     color: white;
     background-color: #D38C37;
     border: none;
