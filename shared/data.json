@@ -1,0 +1,143 @@
+{
+    "data": [
+        {
+            "id": 22,
+            "documentId": "dv1geo6b0a3u428o8sdg2dw4",
+            "title": "Ваш отзыв",
+            "slug": "form",
+            "questions": [
+                {
+                    "id": 21,
+                    "title": "Какую оценку вы бы поставили общей организации мероприятия?",
+                    "type": "from-0_to-10",
+                    "required": false,
+                    "options": []
+                },
+                {
+                    "id": 22,
+                    "title": "Как вы оцениваете качество представленной мебели бренда FiftyFourms?",
+                    "type": "from-0_to-10",
+                    "required": false,
+                    "options": []
+                },
+                {
+                    "id": 23,
+                    "title": "Какова вероятность, что вы купите мебель бренда по указанной цене?",
+                    "type": "from-0_to-10",
+                    "required": false,
+                    "options": []
+                },
+                {
+                    "id": 27,
+                    "title": "Какие модели мебели вызвали у вас наибольший интерес?",
+                    "type": "checkboxes",
+                    "required": false,
+                    "options": [
+                        {
+                            "id": 22,
+                            "title": "Журнальный столик",
+                            "description": "Blossom L Chestnut Caramel",
+                            "image": {
+                                "id": 1,
+                                "documentId": "u0jpo7yix39iofq5krcl9mjn",
+                                "url": "/uploads/image_cf4ab0e161.jpg",
+                                "alternativeText": "table"
+                            }
+                        },
+                        {
+                            "id": 23,
+                            "title": "Книга",
+                            "description": "Книга с данными",
+                            "image": {
+                                "id": 1,
+                                "documentId": "u0jpo7yix39iofq5krcl9mjn",
+                                "url": "/uploads/image_cf4ab0e161.jpg",
+                                "alternativeText": "table"
+                            }
+                        },
+                        {
+                            "id": 24,
+                            "title": "Что то еще",
+                            "description": "Описание чего-то еще",
+                            "image": {
+                                "id": 1,
+                                "documentId": "u0jpo7yix39iofq5krcl9mjn",
+                                "url": "/uploads/image_cf4ab0e161.jpg",
+                                "alternativeText": "table"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": 26,
+                    "title": "Готовы ли вы использовать продукцию российского бренда в своих интерьерах?",
+                    "type": "radiogroup",
+                    "required": false,
+                    "options": [
+                        {
+                            "id": 25,
+                            "title": "Готов полностью",
+                            "description": "Готов при определенных условиях",
+                            "image": null
+                        },
+                        {
+                            "id": 26,
+                            "title": "Готов при определенных условиях",
+                            "description": null,
+                            "image": null
+                        },
+                        {
+                            "id": 27,
+                            "title": "Предпочитаю европейские бренды",
+                            "description": null,
+                            "image": null
+                        },
+                        {
+                            "id": 28,
+                            "title": "Скорее не готов",
+                            "description": null,
+                            "image": null
+                        }
+                    ]
+                },
+                {
+                    "id": 24,
+                    "title": "Что вы хотели бы изменить или улучшить в продукции бренда FiftyFourms?",
+                    "type": "textarea",
+                    "required": false,
+                    "options": []
+                },
+                {
+                    "id": 25,
+                    "title": "Посоветуете ли вы своим заказчикам бренд FiftyFourms?",
+                    "type": "textarea",
+                    "required": false,
+                    "options": []
+                },
+                {
+                    "id": 30,
+                    "title": "ФИО",
+                    "type": "text",
+                    "required": false,
+                    "options": [],
+                    "placeholder": "Введите ФИО"
+                },
+                {
+                    "id": 31,
+                    "title": "Номер телефона",
+                    "type": "phone",
+                    "required": false,
+                    "options": []
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 25,
+            "pageCount": 1,
+            "total": 1
+        }
+    }
+}

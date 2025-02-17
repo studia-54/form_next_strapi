@@ -16,6 +16,9 @@ import SubmitModal from '../submit-modal/SubmitModal'
 
 type FormFields = Record<string, any>
 
+import TextareaFullname from '../textarea-fullname/TextareaFullname'
+import PhoneNumber from '../phonenumber/PhoneNumber'
+import ConfidentCheckbox from '../confident-checkbox/ConfidentCheckbox'
 interface DynamicFormProps {
   fields: Form
   afterSubmit: (data: FormFields, params: Record<string, string>, fields: Form) => Promise<void>
@@ -23,12 +26,18 @@ interface DynamicFormProps {
 }
 
 export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit }) => {
+  const [phone, setPhone] = useState('');
+  
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(event.target.value);
+  };
+
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<number[]>([])
   const [selectedRadioItemId, setSelectedRadioItemId] = useState<number | null>(null)
   const [success, setSuccess] = useState(false)
 
   const router = useRouter()
-  const schema = createFormSchema(fields)
+  // const schema = createFormSchema(fields)
   const methods = useForm()
   // { resolver: zodResolver(schema) }
   const {
@@ -68,6 +77,12 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit })
       }
     })
   }, [selectedCheckboxes, selectedRadioItemId])
+
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+
+const handleCheckboxChange = () => {
+  setIsChecked((prev) => !prev)
+};
 
   // отправка родительскому сайту высоту
   useEffect(() => {
@@ -138,7 +153,14 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit })
           </div>
         )
       case 'textarea':
-        return <Textarea name={name} placeholder={question.placeholder} />
+        return <Textarea name={`textarea:${question.id}`} placeholder={question.placeholder} />
+      case 'text':
+        return <TextareaFullname name={`text:${question.id}`} placeholder={question.placeholder} />
+      case 'phone':
+        return <PhoneNumber
+                value={phone}
+                onChange={handleInput}
+         name={`phone:${question.id}`} />
       default:
         return null
     }
@@ -167,6 +189,12 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit })
                 case 'textarea':
                   type = 'textarea'
                   break
+                case 'text':
+                  type = 'text'
+                  break
+                case 'phone':
+                  type = 'phone'
+                  break
                 default:
                   throw new Error(`Неизвестный тип вопроса: ${field.type}`)
               }
@@ -190,12 +218,17 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit })
             })}
             <button
               className={
-                Object.keys(errors).length === 0 ? styles.form__submit_button : styles.form__submit_button_default
+                Object.keys(errors).length === 0 &&
+                 isChecked ? styles.form__submit_button : styles.form__submit_button_default
               }
               type="submit"
+              disabled={Object.keys(errors).length !== 0}
             >
               {fields.submitButton}
             </button>
+            
+            <ConfidentCheckbox isChecked={isChecked} onCheckboxChange={handleCheckboxChange} />
+
           </form>
         </FormProvider>
       )}
