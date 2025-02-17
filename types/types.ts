@@ -1,23 +1,35 @@
 import { z } from 'zod'
 
 export interface Option {
-  id: number
-  title: string
-  description: string | null
-  image: {
-    id: number
-    url: string
-    alternativeText: string
-  }
-}
-export interface Question {
-  id: number
-  title: string
-  type: 'from-0_to-10' | 'checkboxes' | 'radiogroup' | 'textarea'
-  required: boolean
-  options: Option[]
-  placeholder?: string
-}
+    id: number;
+    title: string;
+    description: string | null;
+    image: {
+        id: number;
+        url: string;
+        alternativeText: string;
+    }
+    }
+    export interface Question {
+    id: number;
+    title: string;
+    type: 'from-0_to-10' | 'checkboxes' | 'radiogroup' | 'textarea' | 'phonenumber' |'fullname'
+    required: boolean;
+    options: Option[];
+    placeholder?: string;
+    }
+    
+    export interface Form {
+    id: number;
+    documentId: string;
+    title: string;
+    slug: string;
+    questions: Question[];
+    submitButton: string;
+    successfullyMessage: string;
+    }
+    
+    export type FieldType = "range" | "text" | "checkbox" | "radio" | "textarea" | 'phonenumber' | 'fullname'
 
 export interface Form {
   id: number
@@ -43,8 +55,6 @@ export interface SomeOtherAction {
   id: number
   someField: string
 }
-
-export type FieldType = 'range' | 'text' | 'checkbox' | 'radio' | 'textarea'
 
 export interface BaseField {
   type: FieldType

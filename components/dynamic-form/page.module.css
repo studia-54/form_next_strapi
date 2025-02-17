@@ -231,3 +231,10 @@
   height: 14px;
   margin-bottom: 14px;
 }
+
+@media (max-width: 375px) {
+  .form__radiobuttons {
+    grid-template-columns: none;
+    gap: 8px;
+  }
+}
