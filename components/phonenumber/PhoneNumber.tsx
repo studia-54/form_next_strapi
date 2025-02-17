@@ -28,8 +28,6 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({ name, value, onChange }) => {
               },
           })}
               type="text"
-              // onChange={onChange}
-              // value={value}
               placeholder="+7 (___) ___-__-__"
               className={styles.phone_input}
       />

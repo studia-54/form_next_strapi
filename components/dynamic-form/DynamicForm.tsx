@@ -60,7 +60,6 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit })
       }),
     ])
     setSuccess(true)
-    // console.log(data)
   }
 
   useEffect(() => {
@@ -80,8 +79,6 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit })
   }, [selectedCheckboxes, selectedRadioItemId])
 
   const [isChecked, setIsChecked] = useState<boolean>(false);
-
-  // console.log(errors)
 
 const handleCheckboxChange = () => {
   setIsChecked((prev) => !prev)

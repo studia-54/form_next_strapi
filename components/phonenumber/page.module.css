@@ -25,13 +25,7 @@
     resize: none;
     color: rgba(216, 216, 216, 1);
 }
-/* 
-.form__textarea::placeholder {
-  color: #D8D8D8;
-  font-size: 14px;
-  font-weight: 275;
-  line-height: 19.6px;
-} */
+
 
 .phone_input {
   color: #D8D8D8;
@@ -62,12 +56,3 @@
     overflow-y: hidden;
   }
 }
-
-/* 
-@media (max-width: 375px) {
-  .form__textarea_container {
-    height: 60px;
-    display: flex;
-    align-items: center;
-  }
-} */

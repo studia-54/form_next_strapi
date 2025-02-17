@@ -55,7 +55,6 @@ export const fetchFields = async (slug: string) => {
     const data = await response.json()
 
     const resData = data.data[0]
-    console.log(resData)
 
     return resData
   } catch (error) {
