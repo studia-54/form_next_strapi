@@ -78,3 +78,7 @@
         display: none;
     }
   }
+
+  .markdown_accent_i em {
+    color: #d38c37;
+  }

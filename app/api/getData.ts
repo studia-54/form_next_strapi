@@ -11,7 +11,7 @@ export const fetchFields = async (slug: string) => {
           $eq: `${slug}`,
         },
       },
-      fields: ['title', 'slug', 'submitButton', 'successfullyMessage'],
+      fields: ['title', 'slug', 'submitButton', 'markdownSubmitMessage'],
       populate: {
         questions: {
           fields: ['title', 'placeholder', 'type', 'required'],
@@ -55,6 +55,7 @@ export const fetchFields = async (slug: string) => {
     const data = await response.json()
 
     const resData = data.data[0]
+    console.log(resData)
 
     return resData
   } catch (error) {

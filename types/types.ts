@@ -26,7 +26,7 @@ export interface Option {
     slug: string;
     questions: Question[];
     submitButton: string;
-    successfullyMessage: string;
+    markdownSubmitMessage: string;
     }
     
     export type FieldType = "range" | "text" | "checkbox" | "radio" | "textarea" | 'phone' | 'text'
@@ -38,7 +38,7 @@ export interface Form {
   slug: string
   questions: Question[]
   submitButton: string
-  successfullyMessage: string
+  markdownSubmitMessage: string
   actions: Action[]
 }
 
