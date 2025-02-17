@@ -11,6 +11,8 @@
         rgba(255, 255, 255, 0.05); */
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.1) 100%), linear-gradient(0deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
     /* background-color: red; */
+    display: flex;
+    align-items: center;
   }
 
   .form__textarea_container:focus-within {
@@ -34,6 +36,10 @@
 .phone_input {
   color: #D8D8D8;
   background-color: transparent !important;
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  overflow-y: hidden;
 }
 .phone_input:active .phone_input:focus {
   background-color: black;
@@ -52,22 +58,16 @@
   .phone_input {
     display: inline-flex;
     align-items: center;
-    height: 20px;
+    height: 60px;
     overflow-y: hidden;
   }
 }
 
-
+/* 
 @media (max-width: 375px) {
   .form__textarea_container {
     height: 60px;
     display: flex;
     align-items: center;
   }
-  .phone_input {
-    display: inline-flex;
-    align-items: center;
-    height: 20px;
-    overflow-y: hidden;
-  }
-}
+} */

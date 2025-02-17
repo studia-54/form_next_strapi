@@ -11,6 +11,9 @@
         rgba(255, 255, 255, 0.05); */
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.1) 100%), linear-gradient(0deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
     /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .form__textarea_container:focus-within {
@@ -22,6 +25,11 @@
     width: 100%;
     resize: none;
     color: rgba(216, 216, 216, 1);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 23px;
+    overflow-y: hidden;
 }
 
 .form__textarea::placeholder {
@@ -58,7 +66,7 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    height: 20px;
+    height: 23px;
     overflow-y: hidden;
   }
 }
