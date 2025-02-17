@@ -117,7 +117,7 @@
                 {
                     "id": 30,
                     "title": "ФИО",
-                    "type": "fullname",
+                    "type": "text",
                     "required": false,
                     "options": [],
                     "placeholder": "Введите ФИО"
@@ -125,7 +125,7 @@
                 {
                     "id": 31,
                     "title": "Номер телефона",
-                    "type": "phonenumber",
+                    "type": "phone",
                     "required": false,
                     "options": []
                 }

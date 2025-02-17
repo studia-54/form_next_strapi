@@ -157,13 +157,13 @@ const handleCheckboxChange = () => {
         )
       case 'textarea':
         return <Textarea name={`textarea:${question.id}`} placeholder={question.placeholder} />
-      case 'fullname':
-        return <TextareaFullname name={`fullname:${question.id}`} placeholder={question.placeholder} />
-      case 'phonenumber':
+      case 'text':
+        return <TextareaFullname name={`text:${question.id}`} placeholder={question.placeholder} />
+      case 'phone':
         return <PhoneNumber
                 value={phone}
                 onChange={handleInput}
-         name={`phonenumber:${question.id}`} />
+         name={`phone:${question.id}`} />
       default:
         return null
     }
@@ -192,11 +192,11 @@ const handleCheckboxChange = () => {
                 case 'textarea':
                   type = 'textarea'
                   break
-                case 'fullname':
-                  type = 'fullname'
+                case 'text':
+                  type = 'text'
                   break
-                case 'phonenumber':
-                  type = 'phonenumber'
+                case 'phone':
+                  type = 'phone'
                   break
                 default:
                   throw new Error(`Неизвестный тип вопроса: ${field.type}`)

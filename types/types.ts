@@ -13,7 +13,7 @@ export interface Option {
     export interface Question {
     id: number;
     title: string;
-    type: 'from-0_to-10' | 'checkboxes' | 'radiogroup' | 'textarea' | 'phonenumber' |'fullname'
+    type: 'from-0_to-10' | 'checkboxes' | 'radiogroup' | 'textarea' | 'phone' |'text'
     required: boolean;
     options: Option[];
     placeholder?: string;
@@ -29,7 +29,7 @@ export interface Option {
     successfullyMessage: string;
     }
     
-    export type FieldType = "range" | "text" | "checkbox" | "radio" | "textarea" | 'phonenumber' | 'fullname'
+    export type FieldType = "range" | "text" | "checkbox" | "radio" | "textarea" | 'phone' | 'text'
 
 export interface Form {
   id: number
