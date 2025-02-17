@@ -20,15 +20,15 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({ name, value, onChange }) => {
             <input
 
             {...registerWithMask(name, ['+7 (999) 999-99-99'], {
-              // required: "Телефон обязателен",
-              required: false,
+              required: "Введите номер телефона",
+              // required: false,
               pattern: {
                   value: /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/,
                   message: "Введите телефон в формате +7 (999) 999-99-99",
               },
           })}
               type="text"
-              onChange={onChange}
+              // onChange={onChange}
               // value={value}
               placeholder="+7 (___) ___-__-__"
               className={styles.phone_input}

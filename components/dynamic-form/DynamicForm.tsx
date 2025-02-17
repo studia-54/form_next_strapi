@@ -60,7 +60,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit })
       }),
     ])
     setSuccess(true)
-    console.log(data)
+    // console.log(data)
   }
 
   useEffect(() => {
@@ -221,7 +221,7 @@ const handleCheckboxChange = () => {
             })}
             <button
               className={
-                // Object.keys(errors).length === 0 &&
+                Object.keys(errors).length === 0 &&
                  isChecked ? styles.form__submit_button : styles.form__submit_button_default
               }
               type="submit"
