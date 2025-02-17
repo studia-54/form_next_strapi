@@ -122,7 +122,7 @@
   border: none;
   text-transform: uppercase;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .form__submit_button_default {
@@ -230,6 +230,15 @@
 .form__errors_container {
   height: 14px;
   margin-bottom: 14px;
+}
+
+@media (max-width: 425px) {
+  .form__container {
+   border-radius: 30px;
+  }
+  .form__title {
+    text-align: center;
+  }
 }
 
 @media (max-width: 375px) {
