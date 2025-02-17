@@ -14,12 +14,14 @@ export const SubmitModal: React.FC<SubmitModalProps>  = ({ fields }) => {
   return (
     <>
         <div className={styles.modal__root}>
-            <Markdown className={clsx(styles.modal__text, 'markdown_accent_i')} rehypePlugins={[rehypeRaw]}>
+            <Markdown className={clsx(styles.modal__text, 'markdown_accent_i', 'form__submit_button')} rehypePlugins={[rehypeRaw]}>
                 {fields.markdownSubmitMessage}
             </Markdown>
-            <Markdown className={clsx(styles.modal__text_mobile, 'markdown_accent_i')} rehypePlugins={[rehypeRaw]}>
+
+            {/* <Markdown className={clsx(styles.modal__text_mobile, 'markdown_accent_i')} rehypePlugins={[rehypeRaw]}>
                 {fields.markdownSubmitMessage}
-            </Markdown>
+            </Markdown> */}
+
             {/* <h1 className={styles.modal__text}>{fields.markdownSubmitMessage}</h1>
             <h1 className={styles.modal__text_mobile}>{fields.markdownSubmitMessage}</h1> */}
             {/* <span className={styles.modal__text_minor}>Ваш отзыв отправлен</span> */}

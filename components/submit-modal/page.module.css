@@ -32,14 +32,14 @@
     font-family: "GT-America-LC-Standard-Thin";
 }
 
-.modal__text_mobile {
+/* .modal__text_mobile {
     font-size: 20px;
     line-height: 30px;
     font-weight: 300;
     color: white;
     text-transform: uppercase;
     display: none;
-}
+} */
 
 .modal__text_minor {
     font-size: 14px;
@@ -65,17 +65,15 @@
 
 @media (max-width: 477px) {
     .modal__root {
-        max-width: 375px; 
+        /* max-width: 375px;  */
         margin: 10px;
     }
-    .modal__text_mobile {
+    .modal__text {
         display: block;
+        font-size: 20px;
     }
     .modal__text_minor {
         display: block;
-    }
-    .modal__text {
-        display: none;
     }
   }
 
