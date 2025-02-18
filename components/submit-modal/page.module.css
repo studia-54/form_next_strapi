@@ -30,6 +30,7 @@
     text-transform: uppercase;
     line-height: 80px;
     font-family: "GT-America-LC-Standard-Thin";
+    text-align: center;
 }
 
 .modal__text_minor {
@@ -72,6 +73,7 @@
   }
 
   .modal__text a {
+    min-width: 303px;
     margin-top: 50px;
     width: 100%;
     display: flex;

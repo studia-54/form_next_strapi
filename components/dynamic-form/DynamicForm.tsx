@@ -153,14 +153,15 @@ const handleCheckboxChange = () => {
           </div>
         )
       case 'textarea':
-        return <Textarea name={`textarea:${question.id}`} placeholder={question.placeholder} />
+        return <Textarea name={name} placeholder={question.placeholder} />
       case 'text':
-        return <TextareaFullname name={`text:${question.id}`} placeholder={question.placeholder} />
+        return <TextareaFullname name={name} placeholder={question.placeholder} />
       case 'phone':
         return <PhoneNumber
                 value={phone}
                 onChange={handleInput}
-         name={`phone:${question.id}`} />
+                name={name}
+         />
       default:
         return null
     }
