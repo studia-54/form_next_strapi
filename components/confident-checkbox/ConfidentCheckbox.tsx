@@ -34,7 +34,7 @@ const ConfidentCheckbox: React.FC<ConfidentCheckboxProps> =  ({ isChecked, onChe
         <div className={styles.text_box}>
             <span className={styles.confident_text}>Принимаю условия </span>
             <a
-            href={window.location.hash === '#fiftyfourms' ? 'https://admin.forms.studia-54.com/uploads/Politika_Fifty_767335c813.pdf' : 'https://admin.forms.studia-54.com/uploads/Politika_Studia54_b0f85802a1.pdf'}
+            href={window.location.hash === '#fiftyfourms' ? 'https://fiftyfourms.com/policy' : 'https://studia-54.com/policy'}
                 target="_blank"
                 // download="confident_example.pdf"
                 >
