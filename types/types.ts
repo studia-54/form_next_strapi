@@ -42,8 +42,14 @@ export interface Form {
   actions: Action[]
 }
 
-export type Action = BitrixSaveInDealAction | SomeOtherAction
+export type Action = BitrixSaveInDealAction | BitrixAddCommentToDealAction | SomeOtherAction
 
+export interface BitrixAddCommentToDealAction {
+  __component: 'bitrix-actions.add-comment-to-deal'
+  id: number
+  deal_id_property_name: string
+  comment: string
+}
 export interface BitrixSaveInDealAction {
   __component: 'bitrix-actions.save-in-deal'
   id: number
