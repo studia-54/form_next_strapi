@@ -36,6 +36,12 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit })
     setValue,
   } = methods
 
+  const sendSize = () => {
+    const height = document.documentElement.scrollHeight
+
+    window.parent.postMessage({ height }, '*')
+  }
+
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
     const params = Object.fromEntries(new URLSearchParams(window.location.search).entries())
     await Promise.all([
@@ -51,6 +57,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit })
       }),
     ])
     setSuccess(true)
+    sendSize()
   }
 
   useEffect(() => {
@@ -71,16 +78,8 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit })
 
   // отправка родительскому сайту высоту
   useEffect(() => {
-    const sendSize = () => {
-      const height = document.documentElement.scrollHeight
-
-      window.parent.postMessage({ height }, '*')
-    }
-
     window.parent.postMessage({ title: fields.title }, '*')
-
     window.addEventListener('resize', sendSize)
-
     sendSize()
 
     return () => {
