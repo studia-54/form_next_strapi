@@ -35,6 +35,9 @@ export const fetchFields = async (slug: string) => {
                */
               populate: '*',
             },
+            'bitrix-actions.add-comment-to-deal': {
+              populate: '*',
+            },
           },
         },
       },

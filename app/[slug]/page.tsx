@@ -35,11 +35,21 @@ export default async function ({ params, searchParams }: { params: Params; searc
         )
 
         await bitrixClient.changeDealById(bitrix_deal_id, computed_data)
+      }
+
+      if (action.__component === 'bitrix-actions.add-comment-to-deal') {
+        const { deal_id_property_name, comment } = action
+        const bitrix_deal_id = params[deal_id_property_name]
+
+        if (!bitrix_deal_id) {
+          return
+        }
+
         await bitrixClient.addCommentToDeal({
           fields: {
             ENTITY_TYPE: 'deal',
             ENTITY_ID: bitrix_deal_id,
-            COMMENT: `[b][color=red][Маркетинг NPS][/color][/b] [color=green]✅ Клиент отправил отзыв! ✅[/color]`,
+            COMMENT: comment,
           },
         })
       }
