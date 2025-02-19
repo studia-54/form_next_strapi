@@ -56,9 +56,6 @@
 }
 
 @media (max-width: 477px) {
-  .modal__root {
-    margin: 10px;
-  }
   .modal__text {
     display: block;
     font-size: 20px;
