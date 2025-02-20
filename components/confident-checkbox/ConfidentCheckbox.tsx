@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from 'react';
+
 import Image from "next/image";
 import styles from "./page.module.css";
 import checkedIcon from "@/shared/input_checked.svg";
@@ -7,7 +9,13 @@ interface ConfidentCheckboxProps {
 }
 
 const ConfidentCheckbox: React.FC<ConfidentCheckboxProps> =  ({ isChecked, onCheckboxChange }) => {
+    const [policyUrl, setPolicyUrl] = useState('https://studia-54.com/policy');
 
+    useEffect(() => {
+      if (typeof window !== 'undefined' && window.location.hash === '#fiftyfourms') {
+        setPolicyUrl('https://fiftyfourms.com/policy');
+      }
+    }, []);
   return (
     <div className={styles.confident_container}>
         <div className={styles.checkbox_container}>
@@ -34,7 +42,7 @@ const ConfidentCheckbox: React.FC<ConfidentCheckboxProps> =  ({ isChecked, onChe
         <div className={styles.text_box}>
             <span className={styles.confident_text}>Принимаю условия </span>
             <a
-            href={window.location.hash === '#fiftyfourms' ? 'https://fiftyfourms.com/policy' : 'https://studia-54.com/policy'}
+             href={policyUrl}
                 target="_blank"
                 // download="confident_example.pdf"
                 >
