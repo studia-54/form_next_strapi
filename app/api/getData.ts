@@ -38,6 +38,9 @@ export const fetchFields = async (slug: string) => {
             'bitrix-actions.add-comment-to-deal': {
               populate: '*',
             },
+            'bitrix-actions.sent-to-google-sheets': {
+              populate: '*',
+            }
           },
         },
       },

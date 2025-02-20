@@ -53,6 +53,20 @@ export default async function ({ params, searchParams }: { params: Params; searc
           },
         })
       }
+
+      if (action.__component === 'bitrix-actions.sent-to-google-sheets') {
+        const { google_sheet_url } = action
+
+        await fetch(google_sheet_url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }).catch(err => {
+          console.error(err)
+        })
+      }
     })
   }
 

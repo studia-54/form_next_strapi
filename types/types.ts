@@ -42,7 +42,7 @@ export interface Form {
   actions: Action[]
 }
 
-export type Action = BitrixSaveInDealAction | BitrixAddCommentToDealAction | SomeOtherAction
+export type Action = BitrixSaveInDealAction | BitrixAddCommentToDealAction | SentToGoogleSheets | SomeOtherAction
 
 export interface BitrixAddCommentToDealAction {
   __component: 'bitrix-actions.add-comment-to-deal'
@@ -56,6 +56,13 @@ export interface BitrixSaveInDealAction {
   deal_id_property_name: string
   fields: { id: number; form_option_key: string; bitrix_field_key: string }[]
 }
+
+export interface SentToGoogleSheets {
+  __component: 'bitrix-actions.sent-to-google-sheets'
+  id: number
+  google_sheet_url: string
+}
+
 export interface SomeOtherAction {
   __component: 'some-other-action'
   id: number
