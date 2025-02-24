@@ -1,0 +1,28 @@
+name: Production
+
+on:
+  push:
+    branches: 'master'
+  workflow_dispatch:
+
+jobs:
+  production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Connect to production server and build project
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            source ~/.profile
+            source ~/.bashrc
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+            nvm use stable
+            cd ${{ secrets.FOLDER }}
+            git pull
+            pnpm i
+            NODE_ENV=production pnpm build && pm2 reload ${{ secrets.PROCESS }}
