@@ -23,15 +23,18 @@ export const CheckboxItem: React.FC<CheckboxItemProps> = ({ option, name, select
         className={selected ? styles.form__checkbox_item_checked : styles.form__checkbox_item}
         onClick={onClick}
       >
-          {/* <label htmlFor='some'></label> */}
-          <Image
-              src={`${NEXT_PUBLIC_API_URL}${option.image.url}`}
-              priority
-              alt={option.image.alternativeText}
-              width={220}
-              height={160}
-              className={styles.form__checkbox_image}
+          {
+            option.image && (
+              <Image
+                src={`${NEXT_PUBLIC_API_URL}${option?.image?.url}`}
+                priority
+                alt={option?.image.alternativeText}
+                width={220}
+                height={160}
+                className={styles.form__checkbox_image}
           />
+            )
+          }
           <div className={styles.form__checkbox_text_container}>
             <span className={styles.form__checkbox_description}>{option.title}</span>
             <span className={styles.form__checkbox_title}>{option.description}</span>
