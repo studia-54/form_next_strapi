@@ -1,5 +1,7 @@
 import { z } from 'zod'
 
+export type Locale = 'ru' | 'en' ;
+
 export interface Option {
     id: number;
     title: string;
@@ -24,6 +26,7 @@ export interface Option {
     documentId: string;
     title: string;
     slug: string;
+    locale: Locale; 
     questions: Question[];
     submitButton: string;
     markdownSubmitMessage: string;

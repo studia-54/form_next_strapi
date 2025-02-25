@@ -1,15 +1,18 @@
 import { DynamicForm } from '@/components/dynamic-form/DynamicForm'
-import { Form } from '@/types/types'
+import { Form,Locale } from '@/types/types'
 import { fetchFields } from '@/app/api/getData'
 import { notFound } from 'next/navigation'
 import { createBitrix } from '@/shared/BitrixClient'
 
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+type SearchParams = Promise<{ [key: string]: string | string[]  | undefined }>
 type Params = Promise<{ slug: string }>
 
 export default async function ({ params, searchParams }: { params: Params; searchParams: SearchParams }) {
   const { slug } = await params
-  const fields: Form = await fetchFields(slug).catch((error) => {
+  
+  const locale = await searchParams.then(params => params.locale as Locale);
+
+  const fields: Form = await fetchFields(slug, locale ).catch((error) => {
     alert(`Ошибка получения полей формы: ${error}`)
   })
 

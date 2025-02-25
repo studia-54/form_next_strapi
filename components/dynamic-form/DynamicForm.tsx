@@ -53,6 +53,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit })
 
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
     const params = Object.fromEntries(new URLSearchParams(window.location.search).entries())
+    console.log(params)
     await Promise.all([
       afterSubmit(data, params, fields).catch(() => {
         alert(`Ошибка попробуйте еще раз позже`)
