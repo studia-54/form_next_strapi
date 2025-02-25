@@ -2,8 +2,9 @@ import { fields } from '@hookform/resolvers/ajv/src/__tests__/__fixtures__/data.
 import qs from 'qs'
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL
 const NEXT_PUBLIC_STRAPI_KEY = process.env.NEXT_PUBLIC_STRAPI_KEY
+import { Locale } from '@/types/types'
 
-export const fetchFields = async (slug: string) => {
+export const fetchFields = async (slug: string, locale: Locale) => {
   const query = qs.stringify(
     {
       filters: {
@@ -11,6 +12,7 @@ export const fetchFields = async (slug: string) => {
           $eq: `${slug}`,
         },
       },
+      locale: locale,
       fields: ['title', 'slug', 'submitButton', 'markdownSubmitMessage'],
       populate: {
         questions: {
