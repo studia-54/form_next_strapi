@@ -1,5 +1,5 @@
 import { DynamicForm } from '@/components/dynamic-form/DynamicForm'
-import { Form,Locale } from '@/types/types'
+import { Form, Locale } from '@/types/types'
 import { fetchFields } from '@/app/api/getData'
 import { notFound } from 'next/navigation'
 import { createBitrix } from '@/shared/BitrixClient'
@@ -10,7 +10,7 @@ type Params = Promise<{ slug: string }>
 export default async function ({ params, searchParams }: { params: Params; searchParams: SearchParams }) {
   const { slug } = await params
   
-  const locale = await searchParams.then(params => params.locale as Locale);
+  const locale = await searchParams.then(params => params.locale as Locale) || 'ru';
 
   const fields: Form = await fetchFields(slug, locale ).catch((error) => {
     alert(`Ошибка получения полей формы: ${error}`)
@@ -75,7 +75,7 @@ export default async function ({ params, searchParams }: { params: Params; searc
 
   return (
     <>
-      <DynamicForm fields={fields} afterSubmit={handleSubmit} />
+      <DynamicForm fields={fields} afterSubmit={handleSubmit} locale={locale} />
     </>
   )
 }

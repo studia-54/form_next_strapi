@@ -6,9 +6,10 @@ import checkedIcon from "@/shared/input_checked.svg";
 interface ConfidentCheckboxProps {
     isChecked: boolean;
     onCheckboxChange: () => void;
+    locale: string;
 }
 
-const ConfidentCheckbox: React.FC<ConfidentCheckboxProps> =  ({ isChecked, onCheckboxChange }) => {
+const ConfidentCheckbox: React.FC<ConfidentCheckboxProps> =  ({ isChecked, onCheckboxChange, locale }) => {
     const [policyUrl, setPolicyUrl] = useState('https://studia-54.com/policy');
 
     useEffect(() => {
@@ -49,23 +50,33 @@ const ConfidentCheckbox: React.FC<ConfidentCheckboxProps> =  ({ isChecked, onChe
         </div>
 
         <div className={styles.text_box}>
-            {/* <span className={styles.confident_text}>Принимаю условия </span>
-            <a
-             href={policyUrl}
-                target="_blank"
-                // download="confident_example.pdf"
-                >
-                <span className={styles.confident_highlight}>Политики конфиденциальности</span>
-            </a> */}
-
-            <span className={styles.confident_text}>I accept the terms </span>
+          {
+            locale === 'ru' ?
+            (
+              <>
+                <span className={styles.confident_text}>Принимаю условия </span>
               <a
-              href={policyEnUrl}
+              href={policyUrl}
                   target="_blank"
                   // download="confident_example.pdf"
                   >
-                  <span className={styles.confident_highlight}>Privacy policy</span>
-              </a>
+                  <span className={styles.confident_highlight}>Политики конфиденциальности</span>
+              </a> 
+              </>
+            )
+            : (
+              <>
+                <span className={styles.confident_text}>I accept the terms </span>
+                <a
+                href={policyEnUrl}
+                    target="_blank"
+                    // download="confident_example.pdf"
+                    >
+                    <span className={styles.confident_highlight}>Privacy policy</span>
+                </a>
+              </>
+            )
+          } 
         </div>
     </div>
   )

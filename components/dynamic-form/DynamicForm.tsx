@@ -22,10 +22,11 @@ import ConfidentCheckbox from '../confident-checkbox/ConfidentCheckbox'
 interface DynamicFormProps {
   fields: Form
   afterSubmit: (data: FormFields, params: Record<string, string>, fields: Form) => Promise<void>
+  locale: string
   // onSubmit: (data: Form) => void
 }
 
-export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit }) => {
+export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, locale }) => {
   const [phone, setPhone] = useState('');
   
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -228,7 +229,7 @@ const handleCheckboxChange = () => {
               {fields.submitButton}
             </button>
             
-            <ConfidentCheckbox isChecked={isChecked} onCheckboxChange={handleCheckboxChange} />
+            <ConfidentCheckbox isChecked={isChecked} onCheckboxChange={handleCheckboxChange} locale={locale} />
 
           </form>
         </FormProvider>
