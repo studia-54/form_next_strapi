@@ -40,7 +40,7 @@ declare global {
   }
 }
 
-export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, locale }) => {
+export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, locale}) => {
   const [phone, setPhone] = useState('');
   
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,37 +66,18 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
     window.parent.postMessage({ height }, '*')
   }
 
-  const [metrikaGoal, setMetrikaGoal] = useState<string | null>(null)
-  const searchParams = useSearchParams()
-  
-  // Получаем параметры из URL и родительского окна
-  useEffect(() => {
-    // Параметры из URL
-    const urlMetrikaGoal = searchParams.get('metrikaGoal')
-    if (urlMetrikaGoal) {
-      setMetrikaGoal(urlMetrikaGoal)
-    }
+  // console.log(metrikaGoal)
 
-    // Обработчик сообщений от родительского окна
-    const handleMessage = (event: MessageEvent) => {
-      if (event.data?.type === 'INIT_PARAMS' && event.data.params.metrikaGoal) {
-        setMetrikaGoal(event.data.params.metrikaGoal)
-      }
-    }
-
-    window.addEventListener('message', handleMessage)
-    return () => window.removeEventListener('message', handleMessage)
-  }, [searchParams])
-
-  const handleMetrikaGoal = () => {
-    if (metrikaGoal && typeof window !== 'undefined' && window.ym) {
-      window.ym(99990810, 'reachGoal', metrikaGoal)
-      console.log('Yandex Metrika goal reached:', metrikaGoal)
+  const handleMetrikaGoal = (goal: string) => {
+    if (goal && typeof window !== 'undefined' && window.ym) {
+      window.ym(99990810, 'reachGoal', goal)
+      console.log('Yandex Metrika goal reached:', goal)
     }
   }
 
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
     const params = Object.fromEntries(new URLSearchParams(window.location.search).entries())
+    const metrikaGoal = params.metrikaGoal;
     console.log(params)
     await Promise.all([
       afterSubmit(data, params, fields).catch(() => {
@@ -111,7 +92,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
       }),
     ])
 
-    handleMetrikaGoal()
+    handleMetrikaGoal(metrikaGoal)
 
     setSuccess(true)
     sendSize()
