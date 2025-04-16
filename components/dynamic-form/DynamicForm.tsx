@@ -55,7 +55,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
 
   const handleClickYandexMetrika = () => {
   if (metrikaGoal && typeof window !== 'undefined' && (window as any).ym) {
-    (window as any).ym(90521662, 'reachGoal', metrikaGoal)
+    (window as any).ym(99990810, 'reachGoal', metrikaGoal)
     console.log('reach')
   }
 };
