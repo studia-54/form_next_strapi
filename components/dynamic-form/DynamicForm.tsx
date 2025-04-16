@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation'
 import { postFields } from '@/app/api/postData'
 import { z } from 'zod'
 import SubmitModal from '../submit-modal/SubmitModal'
+import { useSearchParams } from 'next/navigation'
 
 type FormFields = Record<string, any>
 
@@ -27,7 +28,19 @@ interface DynamicFormProps {
   // onSubmit: (data: Form) => void
 }
 
-export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, locale, metrikaGoal }) => {
+declare global {
+  interface Window {
+    ym: (
+      id: number,
+      method: string,
+      target: string,
+      params?: any,
+      callback?: () => void
+    ) => void;
+  }
+}
+
+export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, locale }) => {
   const [phone, setPhone] = useState('');
   
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,12 +66,34 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
     window.parent.postMessage({ height }, '*')
   }
 
-  const handleClickYandexMetrika = () => {
-  if (metrikaGoal && typeof window !== 'undefined' && (window as any).ym) {
-    (window as any).ym(99990810, 'reachGoal', metrikaGoal)
-    console.log('reach')
+  const [metrikaGoal, setMetrikaGoal] = useState<string | null>(null)
+  const searchParams = useSearchParams()
+  
+  // Получаем параметры из URL и родительского окна
+  useEffect(() => {
+    // Параметры из URL
+    const urlMetrikaGoal = searchParams.get('metrikaGoal')
+    if (urlMetrikaGoal) {
+      setMetrikaGoal(urlMetrikaGoal)
+    }
+
+    // Обработчик сообщений от родительского окна
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data?.type === 'INIT_PARAMS' && event.data.params.metrikaGoal) {
+        setMetrikaGoal(event.data.params.metrikaGoal)
+      }
+    }
+
+    window.addEventListener('message', handleMessage)
+    return () => window.removeEventListener('message', handleMessage)
+  }, [searchParams])
+
+  const handleMetrikaGoal = () => {
+    if (metrikaGoal && typeof window !== 'undefined' && window.ym) {
+      window.ym(99990810, 'reachGoal', metrikaGoal)
+      console.log('Yandex Metrika goal reached:', metrikaGoal)
+    }
   }
-};
 
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
     const params = Object.fromEntries(new URLSearchParams(window.location.search).entries())
@@ -76,7 +111,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
       }),
     ])
 
-    handleClickYandexMetrika();
+    handleMetrikaGoal()
 
     setSuccess(true)
     sendSize()

@@ -1,7 +1,7 @@
 import { DynamicForm } from '@/components/dynamic-form/DynamicForm'
 import { Form, Locale } from '@/types/types'
 import { fetchFields } from '@/app/api/getData'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { createBitrix } from '@/shared/BitrixClient'
 
 type SearchParams = Promise<{ [key: string]: string | string[]  | undefined }>
@@ -13,12 +13,6 @@ export default async function ({ params, searchParams }: { params: Params; searc
   const resolvedSearchParams = await searchParams;
 
   const { slug } = resolvedParams;
-
-  const metrikaGoal = slug === 'catalog' 
-  ? typeof resolvedSearchParams.metrikaGoal === 'string' 
-    ? resolvedSearchParams.metrikaGoal 
-    : null
-  : null;
 
   const locale = await searchParams.then(params => params.locale as Locale) || 'ru';
 
@@ -85,7 +79,7 @@ export default async function ({ params, searchParams }: { params: Params; searc
 
   return (
     <>
-      <DynamicForm fields={fields} afterSubmit={handleSubmit} locale={locale} metrikaGoal={metrikaGoal} />
+      <DynamicForm fields={fields} afterSubmit={handleSubmit} locale={locale} />
     </>
   )
 }
