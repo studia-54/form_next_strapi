@@ -8,8 +8,18 @@ type SearchParams = Promise<{ [key: string]: string | string[]  | undefined }>
 type Params = Promise<{ slug: string }>
 
 export default async function ({ params, searchParams }: { params: Params; searchParams: SearchParams }) {
-  const { slug } = await params
-  
+
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
+
+  const { slug } = resolvedParams;
+
+  const metrikaGoal = slug === 'catalog' 
+  ? typeof resolvedSearchParams.metrikaGoal === 'string' 
+    ? resolvedSearchParams.metrikaGoal 
+    : null
+  : null;
+
   const locale = await searchParams.then(params => params.locale as Locale) || 'ru';
 
   const fields: Form = await fetchFields(slug, locale ).catch((error) => {
@@ -75,7 +85,7 @@ export default async function ({ params, searchParams }: { params: Params; searc
 
   return (
     <>
-      <DynamicForm fields={fields} afterSubmit={handleSubmit} locale={locale} />
+      <DynamicForm fields={fields} afterSubmit={handleSubmit} locale={locale} metrikaGoal={metrikaGoal} />
     </>
   )
 }

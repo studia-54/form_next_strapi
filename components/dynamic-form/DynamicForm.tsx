@@ -22,11 +22,12 @@ import ConfidentCheckbox from '../confident-checkbox/ConfidentCheckbox'
 interface DynamicFormProps {
   fields: Form
   afterSubmit: (data: FormFields, params: Record<string, string>, fields: Form) => Promise<void>
-  locale: string
+  locale: string,
+  metrikaGoal?: string | null;
   // onSubmit: (data: Form) => void
 }
 
-export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, locale }) => {
+export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, locale, metrikaGoal }) => {
   const [phone, setPhone] = useState('');
   
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +53,13 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
     window.parent.postMessage({ height }, '*')
   }
 
+  const handleClickYandexMetrika = () => {
+  if (metrikaGoal && typeof window !== 'undefined' && (window as any).ym) {
+    (window as any).ym(90521662, 'reachGoal', metrikaGoal)
+    console.log('reach')
+  }
+};
+
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
     const params = Object.fromEntries(new URLSearchParams(window.location.search).entries())
     console.log(params)
@@ -67,6 +75,9 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
         alert(`Ошибка попробуйте еще раз позже`)
       }),
     ])
+
+    handleClickYandexMetrika();
+
     setSuccess(true)
     sendSize()
   }
