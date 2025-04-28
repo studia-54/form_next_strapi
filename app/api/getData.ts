@@ -13,7 +13,7 @@ export const fetchFields = async (slug: string, locale: Locale) => {
         },
       },
       locale: locale,
-      fields: ['title', 'slug', 'submitButton', 'markdownSubmitMessage'],
+      fields: ['title', 'subtitle', 'slug', 'submitButton', 'markdownSubmitMessage'],
       populate: {
         questions: {
           fields: ['title', 'placeholder', 'type', 'required'],
@@ -42,7 +42,7 @@ export const fetchFields = async (slug: string, locale: Locale) => {
             },
             'bitrix-actions.sent-to-google-sheets': {
               populate: '*',
-            }
+            },
           },
         },
       },

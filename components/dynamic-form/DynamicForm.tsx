@@ -23,29 +23,23 @@ import ConfidentCheckbox from '../confident-checkbox/ConfidentCheckbox'
 interface DynamicFormProps {
   fields: Form
   afterSubmit: (data: FormFields, params: Record<string, string>, fields: Form) => Promise<void>
-  locale: string,
-  metrikaGoal?: string | null;
+  locale: string
+  metrikaGoal?: string | null
   // onSubmit: (data: Form) => void
 }
 
 declare global {
   interface Window {
-    ym: (
-      id: number,
-      method: string,
-      target: string,
-      params?: any,
-      callback?: () => void
-    ) => void;
+    ym: (id: number, method: string, target: string, params?: any, callback?: () => void) => void
   }
 }
 
-export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, locale}) => {
-  const [phone, setPhone] = useState('');
-  
+export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, locale }) => {
+  const [phone, setPhone] = useState('')
+
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPhone(event.target.value);
-  };
+    setPhone(event.target.value)
+  }
 
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<number[]>([])
   const [selectedRadioItemId, setSelectedRadioItemId] = useState<number | null>(null)
@@ -77,7 +71,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
 
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
     const params = Object.fromEntries(new URLSearchParams(window.location.search).entries())
-    const metrikaGoal = params.metrikaGoal;
+    const metrikaGoal = params.metrikaGoal
     console.log(params)
     await Promise.all([
       afterSubmit(data, params, fields).catch(() => {
@@ -114,11 +108,11 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
     })
   }, [selectedCheckboxes, selectedRadioItemId])
 
-  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [isChecked, setIsChecked] = useState<boolean>(false)
 
-const handleCheckboxChange = () => {
-  setIsChecked((prev) => !prev)
-};
+  const handleCheckboxChange = () => {
+    setIsChecked((prev) => !prev)
+  }
 
   // отправка родительскому сайту высоту
   useEffect(() => {
@@ -185,11 +179,7 @@ const handleCheckboxChange = () => {
       case 'text':
         return <TextareaFullname name={name} placeholder={question.placeholder} />
       case 'phone':
-        return <PhoneNumber
-                value={phone}
-                onChange={handleInput}
-                name={name}
-         />
+        return <PhoneNumber value={phone} onChange={handleInput} name={name} />
       default:
         return null
     }
@@ -202,6 +192,7 @@ const handleCheckboxChange = () => {
           {/* TODO: remome any */}
           <form onSubmit={methods.handleSubmit(onSubmit as any)} className={styles.form__container}>
             <h1 className={styles.form__title}>{fields.title}</h1>
+            {fields.subtitle && <p className={styles.form__subtitle}>{fields.subtitle}</p>}
             {fields.questions.map((field, index) => {
               let type
 
@@ -247,17 +238,17 @@ const handleCheckboxChange = () => {
             })}
             <button
               className={
-                Object.keys(errors).length === 0 &&
-                 isChecked ? styles.form__submit_button : styles.form__submit_button_default
+                Object.keys(errors).length === 0 && isChecked
+                  ? styles.form__submit_button
+                  : styles.form__submit_button_default
               }
               type="submit"
               disabled={Object.keys(errors).length !== 0}
             >
               {fields.submitButton}
             </button>
-            
-            <ConfidentCheckbox isChecked={isChecked} onCheckboxChange={handleCheckboxChange} locale={locale} />
 
+            <ConfidentCheckbox isChecked={isChecked} onCheckboxChange={handleCheckboxChange} locale={locale} />
           </form>
         </FormProvider>
       )}

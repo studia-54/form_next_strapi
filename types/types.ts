@@ -1,38 +1,39 @@
 import { z } from 'zod'
 
-export type Locale = 'ru' | 'en' ;
+export type Locale = 'ru' | 'en'
 
 export interface Option {
-    id: number;
-    title: string;
-    description: string | null;
-    image: {
-        id: number;
-        url: string;
-        alternativeText: string;
-    }
-    }
-    export interface Question {
-    id: number;
-    title: string;
-    type: 'from-0_to-10' | 'checkboxes' | 'radiogroup' | 'textarea' | 'phone' |'text'
-    required: boolean;
-    options: Option[];
-    placeholder?: string;
-    }
-    
-    export interface Form {
-    id: number;
-    documentId: string;
-    title: string;
-    slug: string;
-    locale: Locale; 
-    questions: Question[];
-    submitButton: string;
-    markdownSubmitMessage: string;
-    }
-    
-    export type FieldType = "range" | "text" | "checkbox" | "radio" | "textarea" | 'phone' | 'text'
+  id: number
+  title: string
+  description: string | null
+  image: {
+    id: number
+    url: string
+    alternativeText: string
+  }
+}
+export interface Question {
+  id: number
+  title: string
+  type: 'from-0_to-10' | 'checkboxes' | 'radiogroup' | 'textarea' | 'phone' | 'text'
+  required: boolean
+  options: Option[]
+  placeholder?: string
+}
+
+export interface Form {
+  id: number
+  documentId: string
+  title: string
+  subtitle: string
+  slug: string
+  locale: Locale
+  questions: Question[]
+  submitButton: string
+  markdownSubmitMessage: string
+}
+
+export type FieldType = 'range' | 'text' | 'checkbox' | 'radio' | 'textarea' | 'phone' | 'text'
 
 export interface Form {
   id: number
