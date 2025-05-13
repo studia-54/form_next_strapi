@@ -4,19 +4,18 @@ import { fetchFields } from '@/app/api/getData'
 import { notFound, redirect } from 'next/navigation'
 import { createBitrix } from '@/shared/BitrixClient'
 
-type SearchParams = Promise<{ [key: string]: string | string[]  | undefined }>
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
 type Params = Promise<{ slug: string }>
 
 export default async function ({ params, searchParams }: { params: Params; searchParams: SearchParams }) {
+  const resolvedParams = await params
+  const resolvedSearchParams = await searchParams
 
-  const resolvedParams = await params;
-  const resolvedSearchParams = await searchParams;
+  const { slug } = resolvedParams
 
-  const { slug } = resolvedParams;
+  const locale = (await searchParams.then((params) => params.locale as Locale)) || 'ru'
 
-  const locale = await searchParams.then(params => params.locale as Locale) || 'ru';
-
-  const fields: Form = await fetchFields(slug, locale ).catch((error) => {
+  const fields: Form = await fetchFields(slug, locale).catch((error) => {
     alert(`Ошибка получения полей формы: ${error}`)
   })
 
@@ -69,8 +68,8 @@ export default async function ({ params, searchParams }: { params: Params; searc
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(data),
-        }).catch(err => {
+          body: JSON.stringify({ ...data, ...params }),
+        }).catch((err) => {
           console.error(err)
         })
       }
