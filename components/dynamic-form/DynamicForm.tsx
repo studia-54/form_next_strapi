@@ -1,31 +1,27 @@
 'use client'
 
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import styles from './page.module.css'
-import { createFormSchema, Form, Question } from '@/types/types'
+import { Form, Question } from '@/types/types'
 import Textarea from '../textarea/Textarea'
 import CheckboxItem from '../checkbox-item/CheckboxItem'
 import RadiogroupItem from '../radiogroup-item/RadiogroupItem'
 import RangeInput from '../range-input-new/RangeInputNew'
 import { Fragment, useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { postFields } from '@/app/api/postData'
-import { z } from 'zod'
 import SubmitModal from '../submit-modal/SubmitModal'
-import { useSearchParams } from 'next/navigation'
 
 type FormFields = Record<string, any>
 
 import TextareaFullname from '../textarea-fullname/TextareaFullname'
 import PhoneNumber from '../phonenumber/PhoneNumber'
 import ConfidentCheckbox from '../confident-checkbox/ConfidentCheckbox'
+import { VALID_TYPES } from '@/shared/VALID_TYPES'
 interface DynamicFormProps {
   fields: Form
   afterSubmit: (data: FormFields, params: Record<string, string>, fields: Form) => Promise<void>
   locale: string
   metrikaGoal?: string | null
-  // onSubmit: (data: Form) => void
 }
 
 declare global {
@@ -45,10 +41,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
   const [selectedRadioItemId, setSelectedRadioItemId] = useState<number | null>(null)
   const [success, setSuccess] = useState(false)
 
-  const router = useRouter()
-  // const schema = createFormSchema(fields)
   const methods = useForm()
-  // { resolver: zodResolver(schema) }
   const {
     formState: { errors },
     setValue,
@@ -60,8 +53,6 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
     window.parent.postMessage({ height }, '*')
   }
 
-  // console.log(metrikaGoal)
-
   const handleMetrikaGoal = (goal: string) => {
     if (goal && typeof window !== 'undefined' && window.ym) {
       window.ym(99990810, 'reachGoal', goal)
@@ -72,7 +63,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
     const params = Object.fromEntries(new URLSearchParams(window.location.search).entries())
     const metrikaGoal = params.metrikaGoal
-    console.log(params)
+
     await Promise.all([
       afterSubmit(data, params, fields).catch(() => {
         alert(`Ошибка попробуйте еще раз позже`)
@@ -193,44 +184,28 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
           <form onSubmit={methods.handleSubmit(onSubmit as any)} className={styles.form__container}>
             <h1 className={styles.form__title}>{fields.title}</h1>
             {fields.subtitle && <p className={styles.form__subtitle}>{fields.subtitle}</p>}
-            {fields.questions.map((field, index) => {
-              let type
 
-              switch (field.type) {
-                case 'from-0_to-10':
-                  type = 'from-0_to-10'
-                  break
-                case 'checkboxes':
-                  type = 'checkboxes'
-                  break
-                case 'radiogroup':
-                  type = 'radiogroup'
-                  break
-                case 'textarea':
-                  type = 'textarea'
-                  break
-                case 'text':
-                  type = 'text'
-                  break
-                case 'phone':
-                  type = 'phone'
-                  break
-                default:
-                  throw new Error(`Неизвестный тип вопроса: ${field.type}`)
+            {fields.questions.map((field, index) => {
+              const { type, id, title } = field
+
+              if (!VALID_TYPES[type]) {
+                throw new Error(`Неизвестный тип вопроса: ${type}`)
               }
 
+              const errorKey = `${type}:${id}`
+
               return (
-                <Fragment key={field.id}>
+                <Fragment key={id}>
                   <div className={styles.form__question}>
-                    <label className={styles.form__label} htmlFor={field.title}>
-                      {`${index + 1}. ${field.title}`}
+                    <label className={styles.form__label} htmlFor={title}>
+                      {`${index + 1}. ${title}`}
                     </label>
 
                     {renderField(field, index)}
                   </div>
                   <div className={styles.form__errors_container}>
-                    {errors[`${type}:${field.id}`] && (
-                      <p className={styles.form__error_text}>{errors[`${type}:${field.id}`]?.message as string}</p>
+                    {errors[errorKey] && (
+                      <p className={styles.form__error_text}>{errors[errorKey]?.message as string}</p>
                     )}
                   </div>
                 </Fragment>
