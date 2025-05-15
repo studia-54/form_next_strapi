@@ -1,31 +1,39 @@
-import styles from "./page.module.css";
-import { Option } from "@/types/types";
-import { useFormContext } from 'react-hook-form';
+'use client'
+
+import { useFormContext } from 'react-hook-form'
+import styles from './page.module.css'
+import { Option } from '@/types/types'
+import React from 'react'
+
 interface RadiogroupItemProps {
-    option: Option;
-    name: string;
-    onClick: () => void;
-    selected?: boolean;
+  option: Option
+  name: string
 }
 
-export const RadiogroupItem: React.FC<RadiogroupItemProps>  = ({ option, name, selected, onClick}) => {
-  const { register } = useFormContext();
+const RadiogroupItem: React.FC<RadiogroupItemProps> = ({ option, name }) => {
+  const { register, watch } = useFormContext()
+  const selectedValue = watch(name)
 
   return (
-    <>
     <div className={styles.radio_container}>
       <input
-          {...register(name)}
-          type="radio"
-          className={styles.radio_input }
-          value={option.title}
-          id={option.id.toString()}
-        />
-          <div key={option.id} className={selected ? styles.form__radiogroup_item_checked : styles.form__radiogroup_item} onClick={onClick}> 
-            <div className={styles.form__radiogroup_text} id={option.id.toString()}>{option.title}</div>
-          </div>
+        {...register(name)}
+        type="radio"
+        className={styles.radio_input}
+        value={option.title}
+        id={option.id.toString()}
+      />
+      <label
+        htmlFor={`${name}_${option.id}`}
+        className={
+          Number(selectedValue) === option.id
+            ? styles.form__radiogroup_item_checked
+            : styles.form__radiogroup_item
+        }
+      >
+        <div className={styles.form__radiogroup_text}>{option.title}</div>
+      </label>
     </div>
-    </>
   )
 }
 
