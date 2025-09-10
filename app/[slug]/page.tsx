@@ -1,15 +1,19 @@
 import { DynamicForm } from '@/components/dynamic-form/DynamicForm'
 import { Form, Locale } from '@/types/types'
 import { fetchFields } from '@/app/api/getData'
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import { createBitrix } from '@/shared/BitrixClient'
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
 type Params = Promise<{ slug: string }>
 
+const bitrixLocaleIdMap: Record<string, number> = {
+  ru: 5402,
+  en: 5405,
+}
+
 export default async function ({ params, searchParams }: { params: Params; searchParams: SearchParams }) {
   const resolvedParams = await params
-  const resolvedSearchParams = await searchParams
 
   const { slug } = resolvedParams
 
@@ -39,6 +43,9 @@ export default async function ({ params, searchParams }: { params: Params; searc
         const computed_data = Object.fromEntries(
           action_fields.map(({ bitrix_field_key, form_option_key }) => [bitrix_field_key, data[form_option_key]])
         )
+
+        computed_data['UF_CRM_1757074629'] = new Date().toISOString()
+        computed_data['UF_CRM_1757074784'] = bitrixLocaleIdMap[params['locale']]
 
         await bitrixClient.changeDealById(bitrix_deal_id, computed_data)
       }

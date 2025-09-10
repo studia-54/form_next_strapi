@@ -56,13 +56,11 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
 
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
     const params = Object.fromEntries(new URLSearchParams(window.location.search).entries())
+    params.locale = locale
     const metrikaGoal = params.metrikaGoal
 
     try {
-      await Promise.all([
-        afterSubmit(data, params, fields),
-        postFields({ data, params }),
-      ])
+      await Promise.all([afterSubmit(data, params, fields), postFields({ data, params })])
 
       handleMetrikaGoal(metrikaGoal)
       setSuccess(true)
@@ -83,7 +81,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
     }
   }, [])
 
-  const handleCheckboxChange = () => setIsChecked(prev => !prev)
+  const handleCheckboxChange = () => setIsChecked((prev) => !prev)
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPhone(event.target.value)
@@ -99,11 +97,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
         return (
           <div className={styles.form__checkboxes}>
             {question.options.map((option) => (
-              <CheckboxItem
-                key={option.id}
-                option={option}
-                name={name}
-              />
+              <CheckboxItem key={option.id} option={option} name={name} />
             ))}
           </div>
         )
@@ -112,11 +106,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
         return (
           <div className={styles.form__radiobuttons} key={question.id.toString()}>
             {question.options.map((option) => (
-              <RadiogroupItem
-                key={option.id}
-                option={option}
-                name={name}
-              />
+              <RadiogroupItem key={option.id} option={option} name={name} />
             ))}
           </div>
         )
@@ -165,7 +155,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
                 </Fragment>
               )
             })}
-            
+
             <button
               className={
                 Object.keys(errors).length === 0 && isChecked
@@ -178,11 +168,9 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ fields, afterSubmit, l
               {fields.submitButton}
             </button>
 
-            <ConfidentCheckbox 
-              isChecked={isChecked} 
-              onCheckboxChange={handleCheckboxChange} 
-              locale={locale} 
-            />
+            <ConfidentCheckbox isChecked={isChecked} onCheckboxChange={handleCheckboxChange} locale={locale} />
+
+            <input type="hidden" name="locale" value={locale} />
           </form>
         </FormProvider>
       )}
