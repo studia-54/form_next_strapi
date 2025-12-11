@@ -16,6 +16,8 @@ RUN chown -R node:node /opt/app
 
 USER node
 
+ENV CI=true
+
 RUN pnpm config set fetch-retry-maxtimeout 600000 -g && pnpm install && pnpm build
 EXPOSE 3000
 CMD ["pnpm", "run", "start"]
